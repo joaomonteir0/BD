@@ -81,27 +81,28 @@ ListEx1i = σ Dlocation != 'Aveiro' ∧ Plocation = 'Aveiro' (project ⨝ Dnum=D
 ### *a)*
 
 ```
-... Write here your answer ...
+π nome (σ fornecedor=null (encomenda ⟗ fornecedor = nif fornecedor))
 ```
 
 ### *b)* 
 
 ```
-... Write here your answer ...
+π nome, media (γ codProd;avg(unidades)-> media (item) ⨝codProd=codigo produto)
 ```
 
 
 ### *c)* 
 
 ```
-... Write here your answer ...
+γ;avg(num_prod)->media (γ numEnc;count(codProd)-> num_prod (item))
 ```
 
 
 ### *d)* 
 
 ```
-... Write here your answer ...
+temp1 = γ codProd,fornecedor;sum(unidades)->quantidade (item ⨝numEnc=numero encomenda)
+π fornecedor.nome,produto.nome,quantidade (temp1 ⨝fornecedor=nif fornecedor ⨝codProd=codigo produto)
 ```
 
 
