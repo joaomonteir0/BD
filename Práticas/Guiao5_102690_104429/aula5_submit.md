@@ -111,37 +111,42 @@ temp1 = γ codProd,fornecedor;sum(unidades)->quantidade (item ⨝numEnc=numero e
 ### *a)*
 
 ```
-... Write here your answer ...
+π nome, paciente.numUtente (σ numPresc=null (prescricao ⟗prescricao.numUtente=paciente.numUtente paciente))
 ```
 
 ### *b)* 
 
 ```
-... Write here your answer ...
+γ especialidade; count(numPresc) -> totalP (prescricao ⨝numMedico=numSNS medico)
 ```
 
 
 ### *c)* 
 
 ```
-... Write here your answer ...
+γ nome; count(numPresc)->totalP (prescricao ⨝ farmacia = nome farmacia)
 ```
 
 
 ### *d)* 
 
 ```
-... Write here your answer ...
+F906 = π farmaco.nome (σ numRegFarm = 906 (farmaco ⨝ numRegFarm = numReg farmaceutica))
+P906 = π nomeFarmaco (σ numRegFarm = 906 presc_farmaco)
+F906 - P906
 ```
 
 ### *e)* 
 
 ```
-... Write here your answer ...
+qtdFARMACOS = σ farmacia != null (presc_farmaco ⨝ presc_farmaco.numPresc = prescricao.numPresc prescricao)
+ListEx3e = γ farmacia, numRegFarm; count(numRegFarm)->qtd_farmacos qtdFARMACOS
+π farmacia,nome,qtd_farmacos (ListEx3e ⨝numRegFarm=numReg farmaceutica)
 ```
 
 ### *f)* 
 
 ```
-... Write here your answer ...
+ListEx3f = σ numMed > 1 (γ numUtente; count(numMedico)-> numMed (π numUtente,numMedico prescricao))
+π nome (paciente ⨝ paciente.numUtente = prescricao.numUtente ListEx3f)
 ```
