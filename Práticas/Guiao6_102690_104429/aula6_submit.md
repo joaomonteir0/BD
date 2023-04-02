@@ -140,55 +140,105 @@ INNER JOIN stores ON stores.stor_id=sales.stor_id) WHERE stor_name='Bookbeat');
 ##### *a)*
 
 ```
-... Write here your answer ...
+SELECT Pname, Ssn, Fname, Lname FROM Project
+INNER JOIN Works_on ON Pno=Pnumber
+INNER JOIN Employee ON Essn=Ssn;
 ```
 
 ##### *b)* 
 
 ```
-... Write here your answer ...
+SELECT Fname, Lname FROM Employee
+WHERE Super_ssn=(SELECT Ssn FROM Employee WHERE Fname='Carlos' AND Minit='D' AND Lname='Gomes')
 ```
 
 ##### *c)* 
 
 ```
-... Write here your answer ...
+WITH Worked_Table AS (
+    SELECT Pno, SUM(Hours) AS total_worked
+    FROM Works_on
+    GROUP BY Pno
+)
+
+SELECT P.Pname, WT.total_worked
+FROM Project P
+JOIN Worked_Table WT
+ON P.Pnumber = WT.Pno;
+
 ```
 
 ##### *d)* 
 
 ```
-... Write here your answer ...
+WITH Dep3_Empls AS (
+    SELECT Fname, Lname, Ssn
+    FROM Employee
+    WHERE Dno = 3
+)
+
+SELECT E.Fname, E.Lname
+FROM Project P
+JOIN Works_on WO ON P.Pnumber = WO.Pno
+JOIN Dep3_Empls E ON WO.Essn = E.Ssn
+WHERE WO.Hours > 20;
+
+
 ```
 
 ##### *e)* 
 
 ```
-... Write here your answer ...
+SELECT Fname, Minit, Lname FROM Employee
+LEFT JOIN Works_on ON Essn=Ssn
+WHERE Pno IS NULL
+
 ```
 
 ##### *f)* 
 
 ```
-... Write here your answer ...
+SELECT Dname, AVG(Salary) AS Avg_Salary FROM Department
+INNER JOIN (SELECT * FROM Employee WHERE Sex='F') AS F_DEP ON Dnumber=Dno
+GROUP BY Dname
+
 ```
 
 ##### *g)* 
 
 ```
-... Write here your answer ...
+SELECT Fname, Minit, Lname FROM Employee
+INNER JOIN (
+			SELECT Essn, COUNT(Essn) AS count_dep FROM Dependent
+			GROUP BY Essn
+			HAVING COUNT(Essn)>1
+			) AS TWOORMORE
+ON Ssn=Essn
+
 ```
 
 ##### *h)* 
 
 ```
-... Write here your answer ...
+SELECT Fname, Minit, Lname FROM Department
+INNER JOIN (
+			SELECT E.Fname, E.Minit, E.Lname, E.Ssn FROM Employee AS E
+			LEFT JOIN Dependent ON Ssn=Essn
+			WHERE Essn IS NULL
+			) AS NODEP_EMP
+ON Mgr_ssn=Ssn
 ```
 
 ##### *i)* 
 
 ```
-... Write here your answer ...
+SELECT Fname, Minit, Lname, e_Address FROM Employee
+INNER JOIN (
+			SELECT * FROM Project
+			INNER JOIN Dept_locations ON Dnum=Dnumber
+			WHERE Dlocation!='Aveiro' AND Plocation='Aveiro'
+			) AS PROJECT_LST
+ON Dno=Dnum
 ```
 
 ### 5.2
