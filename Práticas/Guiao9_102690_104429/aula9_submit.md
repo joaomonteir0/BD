@@ -106,24 +106,96 @@ AS
 ### *f)* 
 
 ```
+CREATE FUNCTION FuncDno (@dno int = 0)
+RETURNS TABLE
+AS
+    RETURN
+	(
+	SELECT Company.Employee.*
+	  FROM Company.Employee
+	 WHERE Company.Employee.Dno = @dno
+	   AND Employee.Salary > (
+	   		SELECT AVG(E.Salary) as Sal_medio
+			  FROM Company.Employee E
+			 WHERE E.Dno = @dno
+		  GROUP BY E.Dno	
+		)
+	);
 GO
-
 ```
 
 ### *g)* 
 
 ```
-... Write here your answer ...
+DROP FUNCTION Budget
+GO
+
+GO
+CREATE FUNCTION Budget(@dno int) RETURNS @projtable TABLE (pname varchar(15), number int, plocation varchar(15), dnum int, budget decimal(10,2), totalbudget decimal(10,2))
+AS
+BEGIN
+
+	DECLARE @pname as varchar(15), @number as int, @plocation as varchar(15), @dnum as int, @budget as decimal(10,2), @totalbudget as decimal(10,2);
+
+	DECLARE C CURSOR FAST_FORWARD
+	FOR SELECT Pname, Pnumber, Plocation, Dnumber, Sum(Salary*[Hours]/(40*4))
+		FROM	Company.DEPARTMENT 
+				JOIN Company.PROJECT ON Dnumber=Dnum
+				JOIN Company.Works_on ON Pnumber=Pno
+				JOIN Company.EMPLOYEE ON Essn=Ssn
+		WHERE Dnumber=@dno
+		GROUP BY Pname, Pnumber, Plocation, Dnumber;
+
+	OPEN C;
+
+	FETCH C INTO @pname, @number, @plocation, @dnum, @budget;
+	SELECT @totalbudget = 0;
+
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		SET @totalbudget += @budget;
+		INSERT INTO @projtable VALUES (@pname, @number, @plocation, @dnum, @budget, @totalbudget)
+		FETCH C INTO @pname, @number, @plocation, @dnum, @budget;
+	END
+
+	CLOSE C;
+
+	DEALLOCATE C;
+
+	return;
+END
+GO
+
+	SELECT * 
+FROM Budget (3);
+GO
 ```
 
 ### *h)* 
 
 ```
-... Write here your answer ...
+CREATE TRIGGER DepDelete ON Company.Department
+AFTER DELETE
+AS
+BEGIN
+	IF NOT (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND TABLE_NAME = 'department_deleted'))
+		BEGIN
+		CREATE TABLE department_deleted(
+			Dname varchar(50) not null,
+			Dnumber int PRIMARY KEY,
+			Mgr_ssn char(12),
+			Mgr_start_date DATE
+		);
+		END
+    INSERT INTO dbo.department_deleted
+    SELECT * FROM DELETED
+END
+GO
+
 ```
 
 ### *i)* 
 
 ```
-... Write here your answer ...
+Existem diferenças entre UDFs e Stored Procedures no SQL. UDFs retornam valores, enquanto Stored Procedures não precisam. Stored Procedures são compiladas uma vez e reutilizadas, enquanto UDFs são compiladas a cada uso. Stored Procedures lidam com exceções, mas UDFs não. Stored Procedures usam variáveis temporárias e tabelas, enquanto UDFs não usam tabelas temporárias. Stored Procedures têm parâmetros de entrada e saída, enquanto UDFs só aceitam parâmetros de entrada. Ambos podem simplificar e otimizar o código SQL.
 ```
