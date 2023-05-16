@@ -1,0 +1,72 @@
+﻿DROP TABLE CIRURGIA;
+DROP TABLE PRESCRICAO;
+DROP TABLE CONSULTA;
+DROP TABLE MEDICO_VET;
+DROP TABLE FICHA_CLINICA;
+DROP TABLE DONO;
+DROP TABLE ANIMAL;
+
+CREATE TABLE ANIMAL(
+	nomeAnimal VARCHAR(100) NOT NULL,
+	dataNascimentoAnimal DATE NOT NULL,
+	genero INT NOT NULL,
+	raca VARCHAR(100) NOT NULL,
+	especie VARCHAR(100) NOT NULL,
+	numPaciente INT PRIMARY KEY
+);
+
+CREATE TABLE DONO(
+	nomeDono VARCHAR(100) NOT NULL,
+	moradaDono VARCHAR(100) NOT NULL,
+	contato INT NOT NULL,
+	numCC INT PRIMARY KEY,
+
+);
+
+CREATE TABLE FICHA_CLINICA(
+	numFichaUnica INT PRIMARY KEY,
+	registoMedico VARCHAR(200),
+	numCC INT NOT NULL,
+	numPaciente INT NOT NULL,
+
+	FOREIGN KEY (numPaciente) REFERENCES ANIMAL(numPaciente),
+	FOREIGN KEY (numCC) REFERENCES DONO(numCC)
+);
+
+CREATE TABLE MEDICO_VET(
+	nome VARCHAR(100) NOT NULL,
+	numProfissional INT PRIMARY KEY,
+	contato INT NOT NULL,
+	email VARCHAR(60) NOT NULL,
+	morada VARCHAR(100) NOT NULL,
+);
+
+CREATE TABLE CONSULTA(
+	idConsulta INT PRIMARY KEY,
+	numMedicoVet INT NOT NULL,
+	numPaciente INT NOT NULL,
+	dataConsulta DATE NOT NULL,
+
+	FOREIGN KEY (numMedicoVet) REFERENCES MEDICO_VET(numProfissional),
+	FOREIGN KEY (numPaciente) REFERENCES ANIMAL(numPaciente),
+);
+
+CREATE TABLE PRESCRICAO(
+	numPrescricao INT PRIMARY KEY,
+	idConsulta INT NOT NULL,
+	numProfissional INT NOT NULL,
+	dataConsulta DATE NOT NULL,
+
+	FOREIGN KEY(idConsulta) REFERENCES CONSULTA(idConsulta),
+	FOREIGN KEY(numProfissional) REFERENCES MEDICO_VET(numProfissional),
+);
+
+CREATE TABLE CIRURGIA(
+	numCirurgia INT PRIMARY KEY,
+	procedimento VARCHAR(100) NOT NULL,
+	numPaciente INT NOT NULL,
+	numProfissional INT NOT NULL,
+
+	FOREIGN KEY (numPaciente) REFERENCES ANIMAL(numPaciente),
+	FOREIGN KEY (numProfissional) REFERENCES MEDICO_VET(numProfissional)
+);
