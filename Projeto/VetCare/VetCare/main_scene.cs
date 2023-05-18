@@ -21,12 +21,20 @@ namespace VetCare
         private void initial_load()
         {
             cn = getSGBDConnection();
-            if (!verifySGBDConnection())
-                return;
-            else
+            try
             {
-                Console.Write("Erro na conexão");
+                if (!verifySGBDConnection())
+                    return;
+                else
+                {
+                    Console.Write("Erro na conexão");
+                }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erro na conexão: " + ex.Message);
+            }
+
             panel1.Visible = true;
 
             // popular dataTable("ANIMAL") com o método GetAnimalDataBlade()
@@ -41,6 +49,9 @@ namespace VetCare
         private DataTable GetAnimalDataTable(SqlConnection cn)
         {
             SqlCommand cmd = new SqlCommand("SELECT * FROM ANIMAL", cn);
+            // Para utilizar procedures
+            //cmd.CommandType = CommandType.StoredProcedure;
+            //cmd.Parameters.Add()
             SqlDataReader reader = cmd.ExecuteReader();
 
             DataTable dataTable = new DataTable();
@@ -105,6 +116,11 @@ namespace VetCare
         }
 
         private void AnimalDataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
         }

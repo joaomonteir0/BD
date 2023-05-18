@@ -34,6 +34,8 @@
             button4 = new Button();
             panel1 = new Panel();
             AnimalDataGrid = new DataGridView();
+            textBox1 = new TextBox();
+            button5 = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)AnimalDataGrid).BeginInit();
             SuspendLayout();
@@ -79,6 +81,8 @@
             // panel1
             // 
             panel1.BackColor = SystemColors.ActiveCaption;
+            panel1.Controls.Add(button5);
+            panel1.Controls.Add(textBox1);
             panel1.Controls.Add(AnimalDataGrid);
             panel1.Location = new Point(12, 50);
             panel1.Name = "panel1";
@@ -108,6 +112,23 @@
             AnimalDataGrid.TabIndex = 0;
             AnimalDataGrid.CellContentClick += AnimalDataGrid_CellContentClick;
             // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(8, 258);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(193, 27);
+            textBox1.TabIndex = 1;
+            textBox1.TextChanged += textBox1_TextChanged;
+            // 
+            // button5
+            // 
+            button5.Location = new Point(8, 13);
+            button5.Name = "button5";
+            button5.Size = new Size(130, 62);
+            button5.TabIndex = 2;
+            button5.Text = "Adicionar um novo animal";
+            button5.UseVisualStyleBackColor = true;
+            // 
             // main_scene
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -121,6 +142,7 @@
             Name = "main_scene";
             Text = "Form1";
             panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)AnimalDataGrid).EndInit();
             ResumeLayout(false);
         }
@@ -133,5 +155,7 @@
         private Button button4;
         private Panel panel1; // painel dos animais
         private DataGridView AnimalDataGrid;
+        private TextBox textBox1;
+        private Button button5;
     }
 }
