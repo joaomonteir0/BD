@@ -94,9 +94,10 @@
             AnimalDataGrid.AllowUserToResizeColumns = false;
             AnimalDataGrid.AllowUserToResizeRows = false;
             AnimalDataGrid.BackgroundColor = SystemColors.ActiveCaption;
+            AnimalDataGrid.CellBorderStyle = DataGridViewCellBorderStyle.None;
             AnimalDataGrid.ColumnHeadersHeight = 29;
             AnimalDataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            AnimalDataGrid.GridColor = SystemColors.ButtonHighlight;
+            AnimalDataGrid.GridColor = SystemColors.ActiveCaption;
             AnimalDataGrid.Location = new Point(8, 300);
             AnimalDataGrid.Name = "AnimalDataGrid";
             AnimalDataGrid.RowHeadersWidth = 51;
