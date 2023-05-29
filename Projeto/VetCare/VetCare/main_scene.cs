@@ -41,18 +41,43 @@ namespace VetCare
             // popular dataTable("ANIMAL") com o método GetAnimalDataBlade()
             DataTable dataTable = GetAnimalDataTable(cn);
 
+            // Configurar as colunas da AnimalDataGrid
+            AnimalDataGrid.AutoGenerateColumns = false;
+
+            // Configurar as colunas para exibir as informações desejadas
+            AnimalDataGrid.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "nomeAnimal",
+                HeaderText = "Nome Animal"
+            });
+
+            AnimalDataGrid.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "numCC",
+                HeaderText = "Número CC"
+            });
+
+            AnimalDataGrid.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "numPaciente",
+                HeaderText = "Número Paciente"
+            });
+
+            AnimalDataGrid.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "numFichaUnica",
+                HeaderText = "Número Ficha Única"
+            });
+
             // Preencher dados da AnimalDataGrid com os dados lidos para a dataTable
             AnimalDataGrid.DataSource = dataTable;
+            painelAddAnimal.Visible = false;
+            painelLogo.Visible = true;
         }
-
-
 
         private DataTable GetAnimalDataTable(SqlConnection cn)
         {
-            SqlCommand cmd = new SqlCommand("SELECT * FROM ANIMAL", cn);
-            // Para utilizar procedures
-            //cmd.CommandType = CommandType.StoredProcedure;
-            //cmd.Parameters.Add()
+            SqlCommand cmd = new SqlCommand("SELECT A.nomeAnimal, F.numCC, A.numPaciente, F.numFichaUnica FROM ANIMAL A CROSS APPLY dbo.GetCCAndFichaUnicaByNumPaciente(A.numPaciente) F", cn);
             SqlDataReader reader = cmd.ExecuteReader();
 
             DataTable dataTable = new DataTable();
@@ -62,18 +87,19 @@ namespace VetCare
             cn.Close();
 
             return dataTable;
-
         }
+
+
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //panel2.Visible = false;
+            panel2.Visible = false;
             panel1.Visible = true;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //panel2.Visible = true;
+            panel2.Visible = true;
             panel1.Visible = false;
         }
 
@@ -133,6 +159,7 @@ namespace VetCare
 
         private void button5_Click(object sender, EventArgs e)
         {
+            fecharLerFicha();
             painelLogo.Visible = false;
             painelAddAnimal.Visible = true;
             painelRemovePaciente.Visible = false;
@@ -202,6 +229,9 @@ namespace VetCare
 
         private void button7_Click(object sender, EventArgs e)
         {
+            // Limpar as colunas existentes na DataGridView
+            AnimalDataGrid.Columns.Clear();
+
             // Obter os dados dos text boxes e combo box
             string nomeDono = nomeDonoTextBox.Text;
             string moradaDono = moradaDonoTextBox.Text;
@@ -223,7 +253,6 @@ namespace VetCare
                 MessageBox.Show("Por favor, preencha todos os campos.");
                 return;
             }
-
 
             // Inserir o dono na tabela DONO
             if (!InsertDono(nomeDono, moradaDono, contatoDono, numCC))
@@ -260,6 +289,26 @@ namespace VetCare
             especieAnimalTextBox.Text = string.Empty;
             numPacienteTextBox.Text = string.Empty;
             generoComboBox.SelectedItem = string.Empty;
+
+            cn = getSGBDConnection();
+            try
+            {
+                if (!verifySGBDConnection())
+                    return;
+                else
+                {
+                    Console.Write("Erro na conexão");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erro na conexão: " + ex.Message);
+            }
+
+            DataTable dataTable = GetAnimalDataTable(cn);
+            AnimalDataGrid.DataSource = dataTable;
+            cn.Close();
+
         }
         private bool InsertDono(string nomeDono, string moradaDono, string contatoDono, string numCC)
         {
@@ -324,7 +373,7 @@ namespace VetCare
                     connection.Open();
                     int rowsAffected = command.ExecuteNonQuery();
                     connection.Close();
-
+                    initial_load();
                     return rowsAffected > 0;
                 }
             }
@@ -342,6 +391,7 @@ namespace VetCare
 
         private void removerBotao_Click(object sender, EventArgs e)
         {
+            fecharLerFicha();
             string inputNumFichaClinica = inputNumPacienteRemover.Text;
 
             // Verificar se o campo está vazio
@@ -372,6 +422,27 @@ namespace VetCare
 
             // Limpar o campo de entrada
             inputNumPacienteRemover.Text = string.Empty;
+
+            cn = getSGBDConnection();
+            try
+            {
+                if (!verifySGBDConnection())
+                    return;
+                else
+                {
+                    Console.Write("Erro na conexão");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erro na conexão: " + ex.Message);
+            }
+
+            DataTable dataTable = GetAnimalDataTable(cn);
+            AnimalDataGrid.DataSource = dataTable;
+
+
+
         }
 
         private bool RemoverFichaClinica(int numFichaClinica)
@@ -401,6 +472,234 @@ namespace VetCare
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label12_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label13_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label15_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void abrirFichaBotao_Click(object sender, EventArgs e)
+        {
+            string numFichaUnica = lerNumFichaAbrir.Text;
+
+            // Verificar se o campo está vazio
+            if (string.IsNullOrEmpty(numFichaUnica))
+            {
+                MessageBox.Show("Por favor, insira um número de ficha única.");
+                return;
+            }
+
+            // Verificar se o número de ficha única é um valor inteiro
+            if (!int.TryParse(numFichaUnica, out int numFicha))
+            {
+                MessageBox.Show("Por favor, insira um número de ficha única válido.");
+                return;
+            }
+
+            // Verificar se existe uma ficha clínica com o número fornecido
+            if (!VerificarExistenciaFichaClinica(numFicha))
+            {
+                MessageBox.Show("A ficha clínica com o número fornecido não existe.");
+                return;
+            }
+
+            // Obter os dados da ficha clínica
+            Dictionary<string, string> dadosFicha = ObterDadosFichaClinica(numFicha);
+
+            // Preencher os campos do painel com os dados obtidos
+            textBox2.Text = dadosFicha["nomeDono"];
+            textBox3.Text = dadosFicha["nomeAnimal"];
+            textBox4.Text = dadosFicha["moradaDono"];
+            textBox5.Text = dadosFicha["contato"];
+            nficha1.Text = "Nº Ficha: " + dadosFicha["numCC"];
+            nCC1.Text = "Nº CC: " + dadosFicha["numFichaClinica"];
+            label14.Text = "Espécie: " + dadosFicha["especie"];
+            // Exibir o painel de informações da ficha
+            infosFicha.Visible = true;
+        }
+
+        private bool VerificarExistenciaFichaClinica(int numFicha)
+        {
+            try
+            {
+                using (SqlConnection connection = getSGBDConnection())
+                {
+                    using (SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM FICHA_CLINICA WHERE numFichaUnica = @numFicha", connection))
+                    {
+                        command.Parameters.AddWithValue("@numFicha", numFicha);
+
+                        connection.Open();
+                        int count = (int)command.ExecuteScalar();
+                        connection.Close();
+
+                        return count > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erro ao verificar a existência da ficha clínica: " + ex.Message);
+                return false;
+            }
+        }
+
+        private Dictionary<string, string> ObterDadosFichaClinica(int numFicha)
+        {
+            Dictionary<string, string> dadosFicha = new Dictionary<string, string>();
+
+            try
+            {
+                using (SqlConnection connection = getSGBDConnection())
+                {
+                    using (SqlCommand command = new SqlCommand("SELECT * FROM ObterDadosFichaClinica(@numFicha)", connection))
+                    {
+                        command.Parameters.AddWithValue("@numFicha", numFicha);
+
+                        connection.Open();
+                        SqlDataReader reader = command.ExecuteReader();
+
+                        if (reader.Read())
+                        {
+                            dadosFicha.Add("nomeDono", reader["nomeDono"].ToString());
+                            dadosFicha.Add("nomeAnimal", reader["nomeAnimal"].ToString());
+                            dadosFicha.Add("moradaDono", reader["moradaDono"].ToString());
+                            dadosFicha.Add("contato", reader["contato"].ToString());
+                            dadosFicha.Add("numCC", reader["numCC"].ToString());
+                            dadosFicha.Add("numFichaClinica", reader["numFichaUnica"].ToString());
+                            dadosFicha.Add("especie", reader["especie"].ToString());
+                        }
+
+                        reader.Close();
+                        connection.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erro ao obter os dados da ficha clínica: " + ex.Message);
+            }
+
+            return dadosFicha;
+        }
+
+
+        private void lerNumFichaAbrir_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void infosFicha_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private bool modoEdicao = false;
+
+        private void button7_Click_1(object sender, EventArgs e)
+        {
+            if (modoEdicao)
+            {
+                // Modo de salvar alterações
+
+                // Realizar as validações e salvar as alterações no banco de dados
+
+                // Obter os novos valores das TextBox
+                string novoNomeDono = textBox2.Text;
+                string novoNomeAnimal = textBox3.Text;
+                string novaMorada = textBox4.Text;
+                string novoContacto = textBox5.Text;
+
+                // Chamar a SP para atualizar os dados
+                using (SqlConnection connection = getSGBDConnection())
+                {
+                    using (SqlCommand command = new SqlCommand("AtualizarDadosFichaClinica", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        string numFichaUnica = lerNumFichaAbrir.Text;
+                        command.Parameters.AddWithValue("@numFichaUnica", numFichaUnica);
+                        command.Parameters.AddWithValue("@novoNomeDono", novoNomeDono);
+                        command.Parameters.AddWithValue("@novoNomeAnimal", novoNomeAnimal);
+                        command.Parameters.AddWithValue("@novaMoradaDono", novaMorada);
+                        command.Parameters.AddWithValue("@novoContato", novoContacto);
+
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                        DataTable dataTable = GetAnimalDataTable(connection);
+                        AnimalDataGrid.DataSource = dataTable;
+                        connection.Close();
+                    }
+                }
+
+                // Desabilitar as TextBox para edição
+                textBox2.Enabled = false;
+                textBox3.Enabled = false;
+                textBox4.Enabled = false;
+                textBox5.Enabled = false;
+
+                // Alterar o texto do botão
+                button7.Text = "Editar";
+
+                // Alterar o modo de edição
+                modoEdicao = false;
+            }
+            else
+            {
+                // Modo de edição
+
+                // Habilitar as TextBox para edição
+                textBox2.Enabled = true;
+                textBox3.Enabled = true;
+                textBox4.Enabled = true;
+                textBox5.Enabled = true;
+
+                // Alterar o texto do botão
+                button7.Text = "Guardar alterações";
+
+                // Alterar o modo de edição
+                modoEdicao = true;
+            }
+        }
+
+
+
+        private void nPaciente1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void nficha1_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void fecharAbrirFichaUnica_Click(object sender, EventArgs e)
+        {
+            fecharLerFicha();
+        }
+
+        private void fecharLerFicha()
+        {
+            textBox2.Text = string.Empty;
+            textBox3.Text = string.Empty;
+            textBox4.Text = string.Empty;
+            textBox5.Text = string.Empty;
+            lerNumFichaAbrir.Text = string.Empty;
+            infosFicha.Visible = false;
+        }
+
+        private void numPacienteTextBox_TextChanged(object sender, EventArgs e)
         {
 
         }

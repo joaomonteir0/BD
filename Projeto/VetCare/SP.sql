@@ -1,22 +1,20 @@
--- Remover os stored procedures existentes
+-- Remover os stored procedures:
 DROP PROCEDURE IF EXISTS dbo.RemoverAnimal;
 DROP PROCEDURE IF EXISTS dbo.RemoverFichaClinica;
+DROP PROCEDURE IF EXISTS dbo.AdicionarFichaClinica;
+DROP PROCEDURE IF EXISTS dbo.AtualizarDadosFichaClinica;
 GO
 
--- Criar os stored procedures novamente
 CREATE PROCEDURE dbo.RemoverAnimal
     @numPaciente INT
 AS
 BEGIN
     BEGIN TRANSACTION;
 
-    -- Remover todas as consultas associadas ao animal
     DELETE FROM CONSULTA WHERE numPaciente = @numPaciente;
 
-    -- Remover a ficha clínica do animal
     DELETE FROM FICHA_CLINICA WHERE numPaciente = @numPaciente;
 
-    -- Remover o animal da tabela ANIMAL
     DELETE FROM ANIMAL WHERE numPaciente = @numPaciente;
 
     COMMIT;
@@ -32,22 +30,18 @@ BEGIN
     DECLARE @numPaciente INT;
     DECLARE @numCC INT;
 
-    -- Obter o número do paciente e o número do CC do dono da ficha clínica
     SELECT @numPaciente = numPaciente, @numCC = numCC
     FROM FICHA_CLINICA
     WHERE numFichaUnica = @numFichaClinica;
 
     IF (@numPaciente IS NOT NULL)
     BEGIN
-        -- Remover ficha clínica
         DELETE FROM FICHA_CLINICA
         WHERE numFichaUnica = @numFichaClinica;
 
-        -- Remover animal associado à ficha
         DELETE FROM Animal
         WHERE numPaciente = @numPaciente;
 
-        -- Remover dono associado à ficha
         DELETE FROM Dono
         WHERE numCC = @numCC;
     END;
@@ -62,12 +56,33 @@ CREATE PROCEDURE dbo.AdicionarFichaClinica
     @numPaciente INT
 AS
 BEGIN
-    -- Verificar se o animal e o dono existem
     IF EXISTS (SELECT 1 FROM ANIMAL WHERE numPaciente = @numPaciente) AND EXISTS (SELECT 1 FROM DONO WHERE numCC = @numCC)
     BEGIN
-        -- Inserir a ficha clínica
         INSERT INTO FICHA_CLINICA (numFichaUnica, registoMedico, numCC, numPaciente)
         VALUES (@numFichaClinica, @registoMedico, @numCC, @numPaciente);
     END;
 END;
 GO
+
+CREATE PROCEDURE dbo.AtualizarDadosFichaClinica
+    @numFichaUnica INT,
+    @novoNomeDono VARCHAR(100),
+    @novoNomeAnimal VARCHAR(100),
+    @novaMoradaDono VARCHAR(100),
+    @novoContato INT
+AS
+BEGIN
+    UPDATE DONO
+    SET
+        nomeDono = @novoNomeDono,
+        moradaDono = @novaMoradaDono,
+        contato = @novoContato
+    WHERE
+        numCC = (SELECT numCC FROM FICHA_CLINICA WHERE numFichaUnica = @numFichaUnica);
+
+    UPDATE ANIMAL
+    SET
+        nomeAnimal = @novoNomeAnimal
+    WHERE
+        numPaciente = (SELECT numPaciente FROM FICHA_CLINICA WHERE numFichaUnica = @numFichaUnica);
+END

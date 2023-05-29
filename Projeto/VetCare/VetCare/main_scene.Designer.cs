@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             button1 = new Button();
             button2 = new Button();
             button3 = new Button();
@@ -39,6 +39,23 @@
             button5 = new Button();
             AnimalDataGrid = new DataGridView();
             painelRemovePaciente = new Panel();
+            infosFicha = new Panel();
+            nCC1 = new Label();
+            nficha1 = new Label();
+            button7 = new Button();
+            fecharAbrirFichaUnica = new Button();
+            label18 = new Label();
+            textBox5 = new TextBox();
+            label17 = new Label();
+            textBox4 = new TextBox();
+            label16 = new Label();
+            textBox3 = new TextBox();
+            label15 = new Label();
+            textBox2 = new TextBox();
+            label14 = new Label();
+            abrirFichaBotao = new Button();
+            lerNumFichaAbrir = new TextBox();
+            label13 = new Label();
             removerBotao = new Button();
             inputNumPacienteRemover = new TextBox();
             label12 = new Label();
@@ -67,11 +84,15 @@
             nomeDonoTextBox = new TextBox();
             painelLogo = new Panel();
             textBox1 = new TextBox();
+            panel2 = new Panel();
+            label19 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)AnimalDataGrid).BeginInit();
             painelRemovePaciente.SuspendLayout();
+            infosFicha.SuspendLayout();
             painelAddAnimal.SuspendLayout();
             painelLogo.SuspendLayout();
+            panel2.SuspendLayout();
             SuspendLayout();
             // 
             // button1
@@ -121,7 +142,7 @@
             panel1.Controls.Add(painelAddAnimal);
             panel1.Controls.Add(painelLogo);
             panel1.Controls.Add(painelRemovePaciente);
-            panel1.Location = new Point(12, 50);
+            panel1.Location = new Point(16, 49);
             panel1.Name = "panel1";
             panel1.Size = new Size(1073, 636);
             panel1.TabIndex = 4;
@@ -134,7 +155,7 @@
             button6.Name = "button6";
             button6.Size = new Size(132, 62);
             button6.TabIndex = 3;
-            button6.Text = "Remover um Paciente";
+            button6.Text = "Gerenciar Pacientes";
             button6.UseVisualStyleBackColor = true;
             button6.Click += button6_Click;
             // 
@@ -154,23 +175,24 @@
             AnimalDataGrid.AllowUserToDeleteRows = false;
             AnimalDataGrid.AllowUserToResizeColumns = false;
             AnimalDataGrid.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = Color.White;
-            dataGridViewCellStyle1.ForeColor = Color.FromArgb(64, 64, 64);
-            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(224, 224, 224);
-            dataGridViewCellStyle1.SelectionForeColor = Color.Black;
-            AnimalDataGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = Color.White;
+            dataGridViewCellStyle3.ForeColor = Color.FromArgb(64, 64, 64);
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(224, 224, 224);
+            dataGridViewCellStyle3.SelectionForeColor = Color.Black;
+            AnimalDataGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            AnimalDataGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            AnimalDataGrid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             AnimalDataGrid.BackgroundColor = Color.White;
             AnimalDataGrid.CellBorderStyle = DataGridViewCellBorderStyle.None;
-            AnimalDataGrid.ColumnHeadersHeight = 25;
-            AnimalDataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.ControlLightLight;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = Color.FromArgb(64, 64, 64);
-            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(224, 224, 224);
-            dataGridViewCellStyle2.SelectionForeColor = Color.Black;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            AnimalDataGrid.DefaultCellStyle = dataGridViewCellStyle2;
+            AnimalDataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.ControlLightLight;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle4.ForeColor = Color.FromArgb(64, 64, 64);
+            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(224, 224, 224);
+            dataGridViewCellStyle4.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
+            AnimalDataGrid.DefaultCellStyle = dataGridViewCellStyle4;
             AnimalDataGrid.GridColor = SystemColors.ActiveCaption;
             AnimalDataGrid.Location = new Point(8, 402);
             AnimalDataGrid.Name = "AnimalDataGrid";
@@ -178,6 +200,7 @@
             AnimalDataGrid.RowHeadersWidth = 51;
             AnimalDataGrid.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             AnimalDataGrid.RowTemplate.Height = 29;
+            AnimalDataGrid.RowTemplate.ReadOnly = true;
             AnimalDataGrid.ScrollBars = ScrollBars.Vertical;
             AnimalDataGrid.ShowEditingIcon = false;
             AnimalDataGrid.Size = new Size(798, 190);
@@ -186,6 +209,10 @@
             // 
             // painelRemovePaciente
             // 
+            painelRemovePaciente.Controls.Add(infosFicha);
+            painelRemovePaciente.Controls.Add(abrirFichaBotao);
+            painelRemovePaciente.Controls.Add(lerNumFichaAbrir);
+            painelRemovePaciente.Controls.Add(label13);
             painelRemovePaciente.Controls.Add(removerBotao);
             painelRemovePaciente.Controls.Add(inputNumPacienteRemover);
             painelRemovePaciente.Controls.Add(label12);
@@ -196,12 +223,193 @@
             painelRemovePaciente.TabIndex = 5;
             painelRemovePaciente.Visible = false;
             // 
+            // infosFicha
+            // 
+            infosFicha.Controls.Add(nCC1);
+            infosFicha.Controls.Add(nficha1);
+            infosFicha.Controls.Add(button7);
+            infosFicha.Controls.Add(fecharAbrirFichaUnica);
+            infosFicha.Controls.Add(label18);
+            infosFicha.Controls.Add(textBox5);
+            infosFicha.Controls.Add(label17);
+            infosFicha.Controls.Add(textBox4);
+            infosFicha.Controls.Add(label16);
+            infosFicha.Controls.Add(textBox3);
+            infosFicha.Controls.Add(label15);
+            infosFicha.Controls.Add(textBox2);
+            infosFicha.Controls.Add(label14);
+            infosFicha.Location = new Point(317, 65);
+            infosFicha.Name = "infosFicha";
+            infosFicha.Size = new Size(323, 282);
+            infosFicha.TabIndex = 7;
+            infosFicha.Visible = false;
+            infosFicha.Paint += infosFicha_Paint;
+            // 
+            // nCC1
+            // 
+            nCC1.AutoSize = true;
+            nCC1.Font = new Font("Segoe UI", 7.8F, FontStyle.Bold, GraphicsUnit.Point);
+            nCC1.Location = new Point(193, 21);
+            nCC1.Name = "nCC1";
+            nCC1.Size = new Size(127, 17);
+            nCC1.TabIndex = 12;
+            nCC1.Text = "NºFicha: 123123123";
+            // 
+            // nficha1
+            // 
+            nficha1.AutoSize = true;
+            nficha1.Font = new Font("Segoe UI", 7.8F, FontStyle.Bold, GraphicsUnit.Point);
+            nficha1.Location = new Point(193, 4);
+            nficha1.Name = "nficha1";
+            nficha1.Size = new Size(127, 17);
+            nficha1.TabIndex = 11;
+            nficha1.Text = "NºFicha: 123123123";
+            nficha1.Click += nficha1_Click;
+            // 
+            // button7
+            // 
+            button7.BackColor = Color.SandyBrown;
+            button7.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            button7.Location = new Point(5, 244);
+            button7.Name = "button7";
+            button7.Size = new Size(163, 29);
+            button7.TabIndex = 10;
+            button7.Text = "Editar dados";
+            button7.UseVisualStyleBackColor = false;
+            button7.Click += button7_Click_1;
+            // 
+            // fecharAbrirFichaUnica
+            // 
+            fecharAbrirFichaUnica.BackColor = Color.Red;
+            fecharAbrirFichaUnica.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            fecharAbrirFichaUnica.Location = new Point(176, 244);
+            fecharAbrirFichaUnica.Name = "fecharAbrirFichaUnica";
+            fecharAbrirFichaUnica.Size = new Size(103, 29);
+            fecharAbrirFichaUnica.TabIndex = 9;
+            fecharAbrirFichaUnica.Text = "Fechar";
+            fecharAbrirFichaUnica.UseVisualStyleBackColor = false;
+            fecharAbrirFichaUnica.Click += fecharAbrirFichaUnica_Click;
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Location = new Point(3, 190);
+            label18.Name = "label18";
+            label18.Size = new Size(72, 20);
+            label18.TabIndex = 8;
+            label18.Text = "Contacto:";
+            // 
+            // textBox5
+            // 
+            textBox5.BackColor = Color.FromArgb(224, 224, 224);
+            textBox5.Enabled = false;
+            textBox5.Location = new Point(5, 211);
+            textBox5.Name = "textBox5";
+            textBox5.Size = new Size(274, 27);
+            textBox5.TabIndex = 7;
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Location = new Point(3, 139);
+            label17.Name = "label17";
+            label17.Size = new Size(64, 20);
+            label17.TabIndex = 6;
+            label17.Text = "Morada:";
+            // 
+            // textBox4
+            // 
+            textBox4.BackColor = Color.FromArgb(224, 224, 224);
+            textBox4.Enabled = false;
+            textBox4.Location = new Point(5, 160);
+            textBox4.Name = "textBox4";
+            textBox4.Size = new Size(274, 27);
+            textBox4.TabIndex = 5;
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Location = new Point(3, 87);
+            label16.Name = "label16";
+            label16.Size = new Size(124, 20);
+            label16.TabIndex = 4;
+            label16.Text = "Nome do animal:";
+            // 
+            // textBox3
+            // 
+            textBox3.BackColor = Color.FromArgb(224, 224, 224);
+            textBox3.Enabled = false;
+            textBox3.Location = new Point(5, 108);
+            textBox3.Name = "textBox3";
+            textBox3.Size = new Size(274, 27);
+            textBox3.TabIndex = 3;
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Location = new Point(3, 38);
+            label15.Name = "label15";
+            label15.Size = new Size(114, 20);
+            label15.TabIndex = 2;
+            label15.Text = "Nome do dono:";
+            label15.Click += label15_Click;
+            // 
+            // textBox2
+            // 
+            textBox2.BackColor = Color.FromArgb(224, 224, 224);
+            textBox2.Enabled = false;
+            textBox2.Location = new Point(5, 59);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(274, 27);
+            textBox2.TabIndex = 1;
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label14.Location = new Point(3, 9);
+            label14.Name = "label14";
+            label14.Size = new Size(142, 28);
+            label14.TabIndex = 0;
+            label14.Text = "Espécie - Cão:";
+            // 
+            // abrirFichaBotao
+            // 
+            abrirFichaBotao.BackColor = Color.OliveDrab;
+            abrirFichaBotao.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            abrirFichaBotao.ForeColor = Color.Black;
+            abrirFichaBotao.Location = new Point(165, 267);
+            abrirFichaBotao.Name = "abrirFichaBotao";
+            abrirFichaBotao.Size = new Size(136, 45);
+            abrirFichaBotao.TabIndex = 6;
+            abrirFichaBotao.Text = "Abrir";
+            abrirFichaBotao.UseVisualStyleBackColor = false;
+            abrirFichaBotao.Click += abrirFichaBotao_Click;
+            // 
+            // lerNumFichaAbrir
+            // 
+            lerNumFichaAbrir.Location = new Point(20, 233);
+            lerNumFichaAbrir.Name = "lerNumFichaAbrir";
+            lerNumFichaAbrir.Size = new Size(281, 27);
+            lerNumFichaAbrir.TabIndex = 5;
+            lerNumFichaAbrir.TextChanged += lerNumFichaAbrir_TextChanged;
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Location = new Point(19, 206);
+            label13.Name = "label13";
+            label13.Size = new Size(292, 20);
+            label13.TabIndex = 4;
+            label13.Text = "Abrir ficha clínica por número do paciente:";
+            label13.Click += label13_Click;
+            // 
             // removerBotao
             // 
             removerBotao.BackColor = Color.IndianRed;
             removerBotao.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             removerBotao.ForeColor = Color.Black;
-            removerBotao.Location = new Point(136, 136);
+            removerBotao.Location = new Point(165, 128);
             removerBotao.Name = "removerBotao";
             removerBotao.Size = new Size(136, 45);
             removerBotao.TabIndex = 3;
@@ -213,18 +421,19 @@
             // 
             inputNumPacienteRemover.Location = new Point(23, 95);
             inputNumPacienteRemover.Name = "inputNumPacienteRemover";
-            inputNumPacienteRemover.Size = new Size(249, 27);
+            inputNumPacienteRemover.Size = new Size(278, 27);
             inputNumPacienteRemover.TabIndex = 2;
             inputNumPacienteRemover.TextChanged += inputNumPacienteRemover_TextChanged;
             // 
             // label12
             // 
             label12.AutoSize = true;
-            label12.Location = new Point(20, 65);
+            label12.Location = new Point(21, 65);
             label12.Name = "label12";
-            label12.Size = new Size(252, 20);
+            label12.Size = new Size(281, 20);
             label12.TabIndex = 1;
-            label12.Text = "Número da ficha clínica do paciente:";
+            label12.Text = "Pelo número da ficha clínica do paciente:";
+            label12.Click += label12_Click;
             // 
             // label11
             // 
@@ -302,6 +511,7 @@
             numPacienteTextBox.Size = new Size(189, 20);
             numPacienteTextBox.TabIndex = 20;
             numPacienteTextBox.Text = "1111";
+            numPacienteTextBox.TextChanged += numPacienteTextBox_TextChanged;
             // 
             // label9
             // 
@@ -496,10 +706,31 @@
             textBox1.TabIndex = 0;
             textBox1.Text = "VetCare";
             // 
+            // panel2
+            // 
+            panel2.Controls.Add(label19);
+            panel2.Location = new Point(16, 47);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(1073, 638);
+            panel2.TabIndex = 5;
+            panel2.Visible = false;
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Font = new Font("Segoe UI", 36F, FontStyle.Regular, GraphicsUnit.Point);
+            label19.Location = new Point(211, 232);
+            label19.Name = "label19";
+            label19.Size = new Size(605, 81);
+            label19.TabIndex = 0;
+            label19.Text = "MÉDICOS GOSTOSOS";
+            // 
             // main_scene
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoSize = true;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
             BackColor = Color.FromArgb(224, 224, 224);
             ClientSize = new Size(1212, 852);
             Controls.Add(panel1);
@@ -507,6 +738,7 @@
             Controls.Add(button3);
             Controls.Add(button2);
             Controls.Add(button1);
+            Controls.Add(panel2);
             Name = "main_scene";
             Text = "Form1";
             Load += main_scene_Load;
@@ -514,10 +746,14 @@
             ((System.ComponentModel.ISupportInitialize)AnimalDataGrid).EndInit();
             painelRemovePaciente.ResumeLayout(false);
             painelRemovePaciente.PerformLayout();
+            infosFicha.ResumeLayout(false);
+            infosFicha.PerformLayout();
             painelAddAnimal.ResumeLayout(false);
             painelAddAnimal.PerformLayout();
             painelLogo.ResumeLayout(false);
             painelLogo.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -560,5 +796,24 @@
         private Button removerBotao;
         private TextBox inputNumPacienteRemover;
         private Label label12;
+        private Label label13;
+        private Panel infosFicha;
+        private Label label15;
+        private TextBox textBox2;
+        private Label label14;
+        private Button abrirFichaBotao;
+        private TextBox lerNumFichaAbrir;
+        private Label label18;
+        private TextBox textBox5;
+        private Label label17;
+        private TextBox textBox4;
+        private Label label16;
+        private TextBox textBox3;
+        private Button button7;
+        private Button fecharAbrirFichaUnica;
+        private Label nCC1;
+        private Label nficha1;
+        private Panel panel2;
+        private Label label19;
     }
 }
