@@ -29,7 +29,7 @@ BEGIN
         ROLLBACK TRANSACTION
     END
 END;*/
-
+/*
 CREATE TRIGGER GerarNumeroProfissional
 ON MEDICO_VET
 INSTEAD OF INSERT
@@ -41,3 +41,4 @@ BEGIN
     SELECT nome, ABS(CHECKSUM(NEWID())) % 9000000 + 1000000, contato, email, morada
     FROM inserted;
 END;
+*/

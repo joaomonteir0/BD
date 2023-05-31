@@ -1,8 +1,9 @@
 -- Remover os stored procedures:
-DROP PROCEDURE IF EXISTS dbo.RemoverAnimal;
+/*DROP PROCEDURE IF EXISTS dbo.RemoverAnimal;
 DROP PROCEDURE IF EXISTS dbo.RemoverFichaClinica;
 DROP PROCEDURE IF EXISTS dbo.AdicionarFichaClinica;
 DROP PROCEDURE IF EXISTS dbo.AtualizarDadosFichaClinica;
+DROP PROCEDURE IF EXISTS dbo.InserirMedicoVet;
 GO
 
 CREATE PROCEDURE dbo.RemoverAnimal
@@ -85,4 +86,31 @@ BEGIN
         nomeAnimal = @novoNomeAnimal
     WHERE
         numPaciente = (SELECT numPaciente FROM FICHA_CLINICA WHERE numFichaUnica = @numFichaUnica);
-END
+END;
+GO;
+*/
+/*
+CREATE PROCEDURE dbo.InserirMedicoVet
+    @nome VARCHAR(100),
+    @contato VARCHAR(20),
+    @email VARCHAR(100),
+    @morada VARCHAR(200)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    INSERT INTO MEDICO_VET (nome, contato, email, morada)
+    VALUES (@nome, @contato, @email, @morada);
+END;
+*/
+
+CREATE PROCEDURE dbo.DeletarMedicoVetPorNumProfissional
+    @numProfissional INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Deletar o médico veterinário
+    DELETE FROM MEDICO_VET
+    WHERE numProfissional = @numProfissional;
+END;
+

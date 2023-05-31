@@ -101,7 +101,38 @@ namespace VetCare
         {
             panel2.Visible = true;
             panel1.Visible = false;
+            AtualizarDataGridViewMedicos();
+
         }
+
+        private void AtualizarDataGridViewMedicos()
+        {
+            cn = getSGBDConnection();
+            try
+            {
+                if (!verifySGBDConnection())
+                {
+                    Console.WriteLine("Erro na conexão");
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erro na conexão: " + ex.Message);
+                return;
+            }
+
+            string query = "SELECT nome, numProfissional, contato, email, morada FROM MEDICO_VET";
+            SqlCommand cmd = new SqlCommand(query, cn);
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            DataTable dataTable = new DataTable();
+            adapter.Fill(dataTable);
+
+            dataGridMedicos.DataSource = dataTable;
+
+            cn.Close();
+        }
+
 
 
         // SQL methods 
@@ -700,6 +731,11 @@ namespace VetCare
         }
 
         private void numPacienteTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
