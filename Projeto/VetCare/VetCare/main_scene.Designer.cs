@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(main_scene));
             button1 = new Button();
             button2 = new Button();
             button3 = new Button();
@@ -88,6 +89,31 @@
             dataGridMedicos = new DataGridView();
             button9 = new Button();
             button8 = new Button();
+            gerenciarMedico = new Panel();
+            button11 = new Button();
+            button10 = new Button();
+            label27 = new Label();
+            textNumProf = new TextBox();
+            label28 = new Label();
+            textBox11 = new TextBox();
+            label25 = new Label();
+            textBox8 = new TextBox();
+            label24 = new Label();
+            textBox7 = new TextBox();
+            label23 = new Label();
+            textBox6 = new TextBox();
+            allDoctorsSelect = new ComboBox();
+            adicionarMedico = new Panel();
+            pictureBox1 = new PictureBox();
+            adicionarMedicoButton = new Button();
+            textMoradaMedico = new TextBox();
+            label22 = new Label();
+            textEmailMedico = new TextBox();
+            label21 = new Label();
+            textContatoMedico = new TextBox();
+            label20 = new Label();
+            textNomeMedico = new TextBox();
+            label19 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)AnimalDataGrid).BeginInit();
             painelAddAnimal.SuspendLayout();
@@ -96,6 +122,9 @@
             infosFicha.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridMedicos).BeginInit();
+            gerenciarMedico.SuspendLayout();
+            adicionarMedico.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // button1
@@ -178,24 +207,24 @@
             AnimalDataGrid.AllowUserToDeleteRows = false;
             AnimalDataGrid.AllowUserToResizeColumns = false;
             AnimalDataGrid.AllowUserToResizeRows = false;
-            dataGridViewCellStyle3.BackColor = Color.White;
-            dataGridViewCellStyle3.ForeColor = Color.FromArgb(64, 64, 64);
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(224, 224, 224);
-            dataGridViewCellStyle3.SelectionForeColor = Color.Black;
-            AnimalDataGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = Color.White;
+            dataGridViewCellStyle1.ForeColor = Color.FromArgb(64, 64, 64);
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(224, 224, 224);
+            dataGridViewCellStyle1.SelectionForeColor = Color.Black;
+            AnimalDataGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             AnimalDataGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             AnimalDataGrid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             AnimalDataGrid.BackgroundColor = Color.White;
             AnimalDataGrid.CellBorderStyle = DataGridViewCellBorderStyle.None;
             AnimalDataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = SystemColors.ControlLightLight;
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle4.ForeColor = Color.FromArgb(64, 64, 64);
-            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(224, 224, 224);
-            dataGridViewCellStyle4.SelectionForeColor = Color.Black;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
-            AnimalDataGrid.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.ControlLightLight;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = Color.FromArgb(64, 64, 64);
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(224, 224, 224);
+            dataGridViewCellStyle2.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            AnimalDataGrid.DefaultCellStyle = dataGridViewCellStyle2;
             AnimalDataGrid.GridColor = SystemColors.ActiveCaption;
             AnimalDataGrid.Location = new Point(8, 402);
             AnimalDataGrid.Name = "AnimalDataGrid";
@@ -714,6 +743,8 @@
             panel2.Controls.Add(dataGridMedicos);
             panel2.Controls.Add(button9);
             panel2.Controls.Add(button8);
+            panel2.Controls.Add(gerenciarMedico);
+            panel2.Controls.Add(adicionarMedico);
             panel2.Location = new Point(16, 47);
             panel2.Name = "panel2";
             panel2.Size = new Size(1073, 638);
@@ -729,27 +760,279 @@
             dataGridMedicos.Name = "dataGridMedicos";
             dataGridMedicos.RowHeadersWidth = 51;
             dataGridMedicos.RowTemplate.Height = 29;
+            dataGridMedicos.ScrollBars = ScrollBars.Vertical;
             dataGridMedicos.Size = new Size(987, 221);
             dataGridMedicos.TabIndex = 2;
             dataGridMedicos.CellContentClick += dataGridView1_CellContentClick;
             // 
             // button9
             // 
-            button9.Location = new Point(8, 84);
+            button9.Location = new Point(8, 91);
             button9.Name = "button9";
-            button9.Size = new Size(119, 62);
+            button9.Size = new Size(132, 62);
             button9.TabIndex = 1;
             button9.Text = "Gerenciar Médicos";
             button9.UseVisualStyleBackColor = true;
+            button9.Click += button9_Click;
             // 
             // button8
             // 
             button8.Location = new Point(8, 15);
             button8.Name = "button8";
-            button8.Size = new Size(119, 62);
+            button8.Size = new Size(132, 62);
             button8.TabIndex = 0;
             button8.Text = "Adicionar Médico";
             button8.UseVisualStyleBackColor = true;
+            button8.Click += button8_Click;
+            // 
+            // gerenciarMedico
+            // 
+            gerenciarMedico.Controls.Add(button11);
+            gerenciarMedico.Controls.Add(button10);
+            gerenciarMedico.Controls.Add(label27);
+            gerenciarMedico.Controls.Add(textNumProf);
+            gerenciarMedico.Controls.Add(label28);
+            gerenciarMedico.Controls.Add(textBox11);
+            gerenciarMedico.Controls.Add(label25);
+            gerenciarMedico.Controls.Add(textBox8);
+            gerenciarMedico.Controls.Add(label24);
+            gerenciarMedico.Controls.Add(textBox7);
+            gerenciarMedico.Controls.Add(label23);
+            gerenciarMedico.Controls.Add(textBox6);
+            gerenciarMedico.Controls.Add(allDoctorsSelect);
+            gerenciarMedico.Location = new Point(162, 21);
+            gerenciarMedico.Name = "gerenciarMedico";
+            gerenciarMedico.Size = new Size(833, 367);
+            gerenciarMedico.TabIndex = 4;
+            gerenciarMedico.Visible = false;
+            // 
+            // button11
+            // 
+            button11.BackColor = Color.FromArgb(255, 128, 128);
+            button11.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
+            button11.Location = new Point(230, 293);
+            button11.Name = "button11";
+            button11.Size = new Size(205, 65);
+            button11.TabIndex = 13;
+            button11.Text = "Remover do Sistema";
+            button11.UseVisualStyleBackColor = false;
+            button11.Visible = false;
+            button11.Click += button11_Click;
+            // 
+            // button10
+            // 
+            button10.BackColor = Color.FromArgb(255, 192, 128);
+            button10.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
+            button10.Location = new Point(14, 293);
+            button10.Name = "button10";
+            button10.Size = new Size(205, 65);
+            button10.TabIndex = 12;
+            button10.Text = "Editar Dados";
+            button10.UseVisualStyleBackColor = false;
+            button10.Visible = false;
+            button10.Click += button10_Click;
+            // 
+            // label27
+            // 
+            label27.AutoSize = true;
+            label27.Location = new Point(313, 137);
+            label27.Name = "label27";
+            label27.Size = new Size(236, 20);
+            label27.TabIndex = 11;
+            label27.Text = "Número Identificação Profissional:";
+            // 
+            // textNumProf
+            // 
+            textNumProf.Enabled = false;
+            textNumProf.Location = new Point(314, 158);
+            textNumProf.Name = "textNumProf";
+            textNumProf.Size = new Size(261, 27);
+            textNumProf.TabIndex = 10;
+            // 
+            // label28
+            // 
+            label28.AutoSize = true;
+            label28.Location = new Point(311, 64);
+            label28.Name = "label28";
+            label28.Size = new Size(64, 20);
+            label28.TabIndex = 9;
+            label28.Text = "Morada:";
+            // 
+            // textBox11
+            // 
+            textBox11.Enabled = false;
+            textBox11.Location = new Point(312, 85);
+            textBox11.Name = "textBox11";
+            textBox11.Size = new Size(261, 27);
+            textBox11.TabIndex = 8;
+            // 
+            // label25
+            // 
+            label25.AutoSize = true;
+            label25.Location = new Point(14, 213);
+            label25.Name = "label25";
+            label25.Size = new Size(49, 20);
+            label25.TabIndex = 7;
+            label25.Text = "Email:";
+            // 
+            // textBox8
+            // 
+            textBox8.Enabled = false;
+            textBox8.Location = new Point(15, 234);
+            textBox8.Name = "textBox8";
+            textBox8.Size = new Size(261, 27);
+            textBox8.TabIndex = 6;
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Location = new Point(13, 137);
+            label24.Name = "label24";
+            label24.Size = new Size(72, 20);
+            label24.TabIndex = 5;
+            label24.Text = "Contacto:";
+            // 
+            // textBox7
+            // 
+            textBox7.Enabled = false;
+            textBox7.Location = new Point(14, 158);
+            textBox7.Name = "textBox7";
+            textBox7.Size = new Size(261, 27);
+            textBox7.TabIndex = 4;
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Location = new Point(11, 64);
+            label23.Name = "label23";
+            label23.Size = new Size(53, 20);
+            label23.TabIndex = 3;
+            label23.Text = "Nome:";
+            // 
+            // textBox6
+            // 
+            textBox6.Enabled = false;
+            textBox6.Location = new Point(12, 85);
+            textBox6.Name = "textBox6";
+            textBox6.Size = new Size(261, 27);
+            textBox6.TabIndex = 2;
+            // 
+            // allDoctorsSelect
+            // 
+            allDoctorsSelect.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
+            allDoctorsSelect.FormattingEnabled = true;
+            allDoctorsSelect.Location = new Point(13, 16);
+            allDoctorsSelect.Name = "allDoctorsSelect";
+            allDoctorsSelect.Size = new Size(248, 33);
+            allDoctorsSelect.TabIndex = 1;
+            allDoctorsSelect.Text = "Selecionar um médico";
+            allDoctorsSelect.SelectedIndexChanged += comboBox1_SelectedIndexChanged_1;
+            // 
+            // adicionarMedico
+            // 
+            adicionarMedico.Controls.Add(pictureBox1);
+            adicionarMedico.Controls.Add(adicionarMedicoButton);
+            adicionarMedico.Controls.Add(textMoradaMedico);
+            adicionarMedico.Controls.Add(label22);
+            adicionarMedico.Controls.Add(textEmailMedico);
+            adicionarMedico.Controls.Add(label21);
+            adicionarMedico.Controls.Add(textContatoMedico);
+            adicionarMedico.Controls.Add(label20);
+            adicionarMedico.Controls.Add(textNomeMedico);
+            adicionarMedico.Controls.Add(label19);
+            adicionarMedico.Location = new Point(162, 21);
+            adicionarMedico.Name = "adicionarMedico";
+            adicionarMedico.Size = new Size(833, 367);
+            adicionarMedico.TabIndex = 3;
+            adicionarMedico.Visible = false;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.BackgroundImage = Properties.Resources.medical_icon;
+            pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBox1.InitialImage = (Image)resources.GetObject("pictureBox1.InitialImage");
+            pictureBox1.Location = new Point(415, 52);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(358, 262);
+            pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
+            pictureBox1.TabIndex = 9;
+            pictureBox1.TabStop = false;
+            // 
+            // adicionarMedicoButton
+            // 
+            adicionarMedicoButton.BackColor = Color.FromArgb(0, 192, 0);
+            adicionarMedicoButton.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point);
+            adicionarMedicoButton.Location = new Point(17, 308);
+            adicionarMedicoButton.Name = "adicionarMedicoButton";
+            adicionarMedicoButton.Size = new Size(321, 47);
+            adicionarMedicoButton.TabIndex = 8;
+            adicionarMedicoButton.Text = "Adicionar";
+            adicionarMedicoButton.UseVisualStyleBackColor = false;
+            adicionarMedicoButton.Click += adicionarMedicoButton_Click;
+            // 
+            // textMoradaMedico
+            // 
+            textMoradaMedico.Location = new Point(17, 260);
+            textMoradaMedico.Name = "textMoradaMedico";
+            textMoradaMedico.Size = new Size(321, 27);
+            textMoradaMedico.TabIndex = 7;
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Location = new Point(13, 233);
+            label22.Name = "label22";
+            label22.Size = new Size(64, 20);
+            label22.TabIndex = 6;
+            label22.Text = "Morada:";
+            // 
+            // textEmailMedico
+            // 
+            textEmailMedico.Location = new Point(19, 191);
+            textEmailMedico.Name = "textEmailMedico";
+            textEmailMedico.Size = new Size(321, 27);
+            textEmailMedico.TabIndex = 5;
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Location = new Point(15, 164);
+            label21.Name = "label21";
+            label21.Size = new Size(49, 20);
+            label21.TabIndex = 4;
+            label21.Text = "Email:";
+            // 
+            // textContatoMedico
+            // 
+            textContatoMedico.Location = new Point(21, 122);
+            textContatoMedico.Name = "textContatoMedico";
+            textContatoMedico.Size = new Size(321, 27);
+            textContatoMedico.TabIndex = 3;
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Location = new Point(17, 95);
+            label20.Name = "label20";
+            label20.Size = new Size(72, 20);
+            label20.TabIndex = 2;
+            label20.Text = "Contacto:";
+            // 
+            // textNomeMedico
+            // 
+            textNomeMedico.Location = new Point(23, 52);
+            textNomeMedico.Name = "textNomeMedico";
+            textNomeMedico.Size = new Size(321, 27);
+            textNomeMedico.TabIndex = 1;
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Location = new Point(19, 25);
+            label19.Name = "label19";
+            label19.Size = new Size(129, 20);
+            label19.TabIndex = 0;
+            label19.Text = "Nome do médico:";
             // 
             // main_scene
             // 
@@ -765,7 +1048,6 @@
             Controls.Add(button1);
             Controls.Add(panel2);
             Controls.Add(panel1);
-            Enabled = false;
             Name = "main_scene";
             Text = "Form1";
             Load += main_scene_Load;
@@ -781,6 +1063,11 @@
             infosFicha.PerformLayout();
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridMedicos).EndInit();
+            gerenciarMedico.ResumeLayout(false);
+            gerenciarMedico.PerformLayout();
+            adicionarMedico.ResumeLayout(false);
+            adicionarMedico.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
@@ -844,5 +1131,30 @@
         private DataGridView dataGridMedicos;
         private Button button9;
         private Button button8;
+        private Panel adicionarMedico;
+        private PictureBox pictureBox1;
+        private Button adicionarMedicoButton;
+        private TextBox textMoradaMedico;
+        private Label label22;
+        private TextBox textEmailMedico;
+        private Label label21;
+        private TextBox textContatoMedico;
+        private Label label20;
+        private TextBox textNomeMedico;
+        private Label label19;
+        private Panel gerenciarMedico;
+        private ComboBox allDoctorsSelect;
+        private Button button11;
+        private Button button10;
+        private Label label27;
+        private TextBox textNumProf;
+        private Label label28;
+        private TextBox textBox11;
+        private Label label25;
+        private TextBox textBox8;
+        private Label label24;
+        private TextBox textBox7;
+        private Label label23;
+        private TextBox textBox6;
     }
 }

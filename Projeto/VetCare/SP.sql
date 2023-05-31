@@ -64,7 +64,8 @@ BEGIN
     END;
 END;
 GO
-
+*/
+/*
 CREATE PROCEDURE dbo.AtualizarDadosFichaClinica
     @numFichaUnica INT,
     @novoNomeDono VARCHAR(100),
@@ -87,8 +88,9 @@ BEGIN
     WHERE
         numPaciente = (SELECT numPaciente FROM FICHA_CLINICA WHERE numFichaUnica = @numFichaUnica);
 END;
-GO;
+GO
 */
+
 /*
 CREATE PROCEDURE dbo.InserirMedicoVet
     @nome VARCHAR(100),
@@ -102,7 +104,7 @@ BEGIN
     VALUES (@nome, @contato, @email, @morada);
 END;
 */
-
+/*
 CREATE PROCEDURE dbo.DeletarMedicoVetPorNumProfissional
     @numProfissional INT
 AS
@@ -113,4 +115,25 @@ BEGIN
     DELETE FROM MEDICO_VET
     WHERE numProfissional = @numProfissional;
 END;
+*/
+/*
+CREATE PROCEDURE AtualizarMedicoVetPorNumProfissional
+    @numProfissional INT,
+    @nome VARCHAR(100),
+    @contato INT,
+    @email VARCHAR(60),
+    @morada VARCHAR(100)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Atualizar os campos do médico veterinário
+    UPDATE MEDICO_VET
+    SET nome = @nome,
+        contato = @contato,
+        email = @email,
+        morada = @morada
+    WHERE numProfissional = @numProfissional;
+END;
+*/
 

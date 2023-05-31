@@ -4,6 +4,9 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Windows.Forms;
 using VetCare.classes;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 
 namespace VetCare
 {
@@ -101,6 +104,8 @@ namespace VetCare
         {
             panel2.Visible = true;
             panel1.Visible = false;
+            adicionarMedico.Visible = false;
+            gerenciarMedico.Visible = false;
             AtualizarDataGridViewMedicos();
 
         }
@@ -739,5 +744,161 @@ namespace VetCare
         {
 
         }
+
+        private void adicionarMedicoButton_Click(object sender, EventArgs e)
+        {
+            string nome = textNomeMedico.Text;
+            string contato = textContatoMedico.Text;
+            string email = textEmailMedico.Text;
+            string morada = textMoradaMedico.Text;
+
+            using (SqlConnection connection = getSGBDConnection())
+            {
+                using (SqlCommand command = new SqlCommand("dbo.InserirMedicoVet", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    string numFichaUnica = lerNumFichaAbrir.Text;
+                    command.Parameters.AddWithValue("@nome", SqlDbType.VarChar).Value = nome;
+                    command.Parameters.AddWithValue("@contato", SqlDbType.VarChar).Value = contato;
+                    command.Parameters.AddWithValue("@email", SqlDbType.VarChar).Value = email;
+                    command.Parameters.AddWithValue("@morada", SqlDbType.VarChar).Value = morada;
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+
+                    connection.Close();
+                }
+            }
+            AtualizarDataGridViewMedicos();
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            adicionarMedico.Visible = true;
+            gerenciarMedico.Visible = false;
+            textBox6.Text = String.Empty;
+            textBox7.Text = String.Empty;
+            textBox8.Text = String.Empty;
+            textBox11.Text = String.Empty;
+            textNumProf.Text = String.Empty;
+            button10.Visible = false;
+            button11.Visible = false;
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            allDoctorsSelect.Items.Clear();
+            textBox6.Text = String.Empty;
+            textBox7.Text = String.Empty;
+            textBox8.Text = String.Empty;
+            textBox11.Text = String.Empty;
+            textNumProf.Text = String.Empty;
+            button10.Visible = false;
+            button11.Visible = false;
+            gerenciarMedico.Visible = true;
+            adicionarMedico.Visible = false;
+            using (SqlConnection connection = getSGBDConnection())
+            {
+                connection.Open();
+                string query = "SELECT * FROM MEDICO_VET";
+                SqlCommand command = new SqlCommand(query, connection);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    string medicoName = reader["nome"].ToString();
+                    allDoctorsSelect.Items.Add(medicoName);
+                }
+                reader.Close();
+                connection.Close();
+            }
+            AtualizarDataGridViewMedicos();
+        }
+
+        private void comboBox1_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            using (SqlConnection connection = getSGBDConnection())
+            {
+                connection.Open();
+                if (allDoctorsSelect.Text == "Selecionar um médico")
+                {
+                    button10.Visible = false;
+                    button11.Visible = false;
+                }
+                else
+                {
+                    SqlCommand command = new SqlCommand("SELECT * FROM MEDICO_VET WHERE nome='" + allDoctorsSelect.Text + "'", connection);
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        textBox6.Text = reader["nome"].ToString();
+                        textBox7.Text = reader["contato"].ToString();
+                        textBox8.Text = reader["email"].ToString();
+                        textBox11.Text = reader["morada"].ToString();
+                        textNumProf.Text = reader["numProfissional"].ToString();
+                    }
+                    button10.Visible = true;
+                    button11.Visible = true;
+                    reader.Close();
+                }
+                connection.Close();
+            }
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            textBox6.Enabled = true;
+            textBox7.Enabled = true;
+            textBox8.Enabled = true;
+            textBox11.Enabled = true;
+            if (button10.Text == "Editar Dados")
+            {
+                button10.Text = "Guardar alterações";
+            }
+            else
+            {
+                int numProfissional = Convert.ToInt32(textNumProf.Text);
+                string nome = textBox6.Text;
+                int contato = Convert.ToInt32(textBox7.Text);
+                string email = textBox8.Text;
+                string morada = textBox11.Text;
+
+                using (SqlConnection connection = getSGBDConnection())
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("AtualizarMedicoVetPorNumProfissional", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@numProfissional", numProfissional);
+                    command.Parameters.AddWithValue("@nome", nome);
+                    command.Parameters.AddWithValue("@contato", contato);
+                    command.Parameters.AddWithValue("@email", email);
+                    command.Parameters.AddWithValue("@morada", morada);
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+                MessageBox.Show("Dados do médico veterinário atualizados com sucesso!");
+                button10.Text = "Editar Dados";
+                AtualizarDataGridViewMedicos();
+            }
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            int numProfissional = Convert.ToInt32(textNumProf.Text);
+
+            // Chamar o procedimento armazenado
+            using (SqlConnection connection = getSGBDConnection())
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("DeletarMedicoVetPorNumProfissional", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@numProfissional", numProfissional);
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+
+            MessageBox.Show("Médico veterinário deletado com sucesso!");
+            AtualizarDataGridViewMedicos();
+        }
+
     }
 }
