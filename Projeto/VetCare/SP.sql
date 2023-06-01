@@ -137,3 +137,15 @@ BEGIN
 END;
 */
 
+CREATE PROCEDURE InfosConsultaPorData
+    @date DATE
+AS
+BEGIN
+    SELECT c.idConsulta, m.nome AS nomeMedico, a.nomeAnimal
+    FROM CONSULTA c
+    INNER JOIN MEDICO_VET m ON c.numMedicoVet = m.numProfissional
+    INNER JOIN ANIMAL a ON c.numPaciente = a.numPaciente
+    WHERE c.dataConsulta = @date;
+END;
+
+

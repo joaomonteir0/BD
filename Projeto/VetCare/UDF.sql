@@ -24,3 +24,20 @@ RETURN
     INNER JOIN DONO D ON FC.numCC = D.numCC
     WHERE FC.numFichaUnica = @numFichaUnica
 )
+
+
+CREATE FUNCTION VerificarPrescricao(@idConsulta INT)
+RETURNS INT
+AS
+BEGIN
+    DECLARE @numPrescricao INT;
+
+    SELECT @numPrescricao = numPrescricao
+    FROM PRESCRICAO
+    WHERE idConsulta = @idConsulta;
+
+    IF @numPrescricao IS NULL
+        SET @numPrescricao = 0;
+
+    RETURN @numPrescricao;
+END;

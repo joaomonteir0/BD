@@ -20,14 +20,23 @@ INSERT INTO FICHA_CLINICA (numFichaUnica, registoMedico, numCC, numPaciente) VAL
 INSERT INTO FICHA_CLINICA (numFichaUnica, registoMedico, numCC, numPaciente) VALUES (5, 'Registo médico 5', 555555555, 1005);
 
 -- MEDICO_VET
--- Inserção do primeiro médico
-INSERT INTO MEDICO_VET (nome, contato, email, morada)
-VALUES ('Dr. João Silva', 987654321, 'joao.silva@example.com', 'Rua das Flores, 123');
+INSERT INTO MEDICO_VET (nome, contato, email, morada) VALUES ('Dr. João Silva', 987654321, 'joao.silva@example.com', 'Rua das Flores, 123');
+INSERT INTO MEDICO_VET (nome, contato, email, morada) VALUES ('Dra. Maria Santos', 123456789, 'maria.santos@example.com', 'Avenida Central, 456');
+INSERT INTO MEDICO_VET (nome, contato, email, morada) VALUES ('Dr. Pedro Oliveira', 456789123, 'pedro.oliveira@example.com', 'Praça da Liberdade, 789');
 
--- Inserção do segundo médico
-INSERT INTO MEDICO_VET (nome, contato, email, morada)
-VALUES ('Dra. Maria Santos', 123456789, 'maria.santos@example.com', 'Avenida Central, 456');
+-- Consultas
+INSERT INTO CONSULTA (idConsulta, numMedicoVet, numPaciente, dataConsulta) VALUES (1, 1178243, 1004, '2023-06-01');
+INSERT INTO CONSULTA (idConsulta, numMedicoVet, numPaciente, dataConsulta) VALUES (2, 4620903, 1005, '2023-06-05');
+INSERT INTO CONSULTA (idConsulta, numMedicoVet, numPaciente, dataConsulta) VALUES (3, 1178243, 1004, '2023-06-08');
+INSERT INTO CONSULTA (idConsulta, numMedicoVet, numPaciente, dataConsulta) VALUES (4, 1178243, 1004, '2023-05-28');
+INSERT INTO CONSULTA (idConsulta, numMedicoVet, numPaciente, dataConsulta) VALUES (5, 4620903, 1005, '2023-05-15');
+INSERT INTO CONSULTA (idConsulta, numMedicoVet, numPaciente, dataConsulta) VALUES (6, 1178243, 1004, '2023-05-20');
+INSERT INTO CONSULTA (idConsulta, numMedicoVet, numPaciente, dataConsulta) VALUES (7, 5731686, 1004, '2023-05-25');
+INSERT INTO CONSULTA (idConsulta, numMedicoVet, numPaciente, dataConsulta) VALUES (8, 4620903, 1004, '2023-05-29');
 
--- Inserção do terceiro médico
-INSERT INTO MEDICO_VET (nome, contato, email, morada)
-VALUES ('Dr. Pedro Oliveira', 456789123, 'pedro.oliveira@example.com', 'Praça da Liberdade, 789');
+
+-- PRESCRICAO
+INSERT INTO PRESCRICAO (numPrescricao, idConsulta, numProfissional, dataConsulta) VALUES (2, 6, 1178243, '2023-05-20');
+INSERT INTO PRESCRICAO (numPrescricao, idConsulta, numProfissional, dataConsulta) VALUES (3, 7, 5731686, '2023-05-25');
+
+

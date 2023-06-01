@@ -76,6 +76,9 @@ namespace VetCare
             AnimalDataGrid.DataSource = dataTable;
             painelAddAnimal.Visible = false;
             painelLogo.Visible = true;
+            panel2.Visible = false;
+            consultas.Visible = false;
+            panelCirurgias.Visible = false;
         }
 
         private DataTable GetAnimalDataTable(SqlConnection cn)
@@ -98,12 +101,16 @@ namespace VetCare
         {
             panel2.Visible = false;
             panel1.Visible = true;
+            consultas.Visible = false;
+            panelCirurgias.Visible = false;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             panel2.Visible = true;
             panel1.Visible = false;
+            panelCirurgias.Visible = false;
+            consultas.Visible = false;
             adicionarMedico.Visible = false;
             gerenciarMedico.Visible = false;
             AtualizarDataGridViewMedicos();
@@ -876,6 +883,30 @@ namespace VetCare
                     connection.Close();
                 }
                 MessageBox.Show("Dados do médico veterinário atualizados com sucesso!");
+                allDoctorsSelect.Items.Clear();
+                textBox6.Text = String.Empty;
+                textBox7.Text = String.Empty;
+                textBox8.Text = String.Empty;
+                textBox11.Text = String.Empty;
+                textNumProf.Text = String.Empty;
+                button10.Visible = false;
+                button11.Visible = false;
+                gerenciarMedico.Visible = true;
+                adicionarMedico.Visible = false;
+                using (SqlConnection connection = getSGBDConnection())
+                {
+                    connection.Open();
+                    string query = "SELECT * FROM MEDICO_VET";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string medicoName = reader["nome"].ToString();
+                        allDoctorsSelect.Items.Add(medicoName);
+                    }
+                    reader.Close();
+                    connection.Close();
+                }
                 button10.Text = "Editar Dados";
                 AtualizarDataGridViewMedicos();
             }
@@ -897,8 +928,166 @@ namespace VetCare
             }
 
             MessageBox.Show("Médico veterinário deletado com sucesso!");
+            allDoctorsSelect.Items.Clear();
+            textBox6.Text = String.Empty;
+            textBox7.Text = String.Empty;
+            textBox8.Text = String.Empty;
+            textBox11.Text = String.Empty;
+            textNumProf.Text = String.Empty;
+            button10.Visible = false;
+            button11.Visible = false;
+            gerenciarMedico.Visible = true;
+            adicionarMedico.Visible = false;
+            using (SqlConnection connection = getSGBDConnection())
+            {
+                connection.Open();
+                allDoctorsSelect.Items.Clear();
+                string query = "SELECT * FROM MEDICO_VET";
+                SqlCommand command = new SqlCommand(query, connection);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    string medicoName = reader["nome"].ToString();
+                    allDoctorsSelect.Items.Add(medicoName);
+                }
+                reader.Close();
+                connection.Close();
+                allDoctorsSelect.Text = String.Empty;
+            }
             AtualizarDataGridViewMedicos();
         }
 
+        private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            consultas.Visible = true;
+            panel1.Visible = false;
+            panel2.Visible = false;
+            panelCirurgias.Visible = false;
+
+            panelPesquisaPrescricao.Visible = false;
+            panelMarcarConsulta.Visible = false;
+            panelDesmarcarConsulta.Visible = false;
+
+        }
+
+        private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
+        {
+            panelPesquisaPrescricao.Visible = true;
+            panelMarcarConsulta.Visible = false;
+            panelDesmarcarConsulta.Visible = false;
+            using (SqlConnection connection = getSGBDConnection())
+            {
+                updateCalendarConsultas(connection);
+
+            }
+        }
+
+        private void monthCalendar1_DateSelected(object sender, DateRangeEventArgs e)
+        {
+            DateTime selectedDate = e.Start;
+
+            using (SqlConnection connection = getSGBDConnection())
+            {
+                SqlCommand command = new SqlCommand("InfosConsultaPorData", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@date", selectedDate);
+
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    panelPesquisaPrescricao.Visible = true;
+                    reader.Read();
+                    dataconsulta.Text = selectedDate.ToShortDateString();
+                    nomeMedVet.Text = reader["nomeMedico"].ToString();
+                    nomeAnimalCon.Text = reader["nomeAnimal"].ToString();
+
+                    int idConsulta = Convert.ToInt32(reader["idConsulta"]);
+                    reader.Close();
+
+                    SqlCommand udfCommand = new SqlCommand("SELECT dbo.VerificarPrescricao(@idConsulta)", connection);
+                    udfCommand.Parameters.AddWithValue("@idConsulta", idConsulta);
+
+                    bool possuiPrescricao = Convert.ToBoolean(udfCommand.ExecuteScalar());
+
+                    if (possuiPrescricao)
+                    {
+                        SqlCommand prescricaoCommand = new SqlCommand("SELECT numPrescricao FROM PRESCRICAO WHERE idConsulta = @idConsulta", connection);
+                        prescricaoCommand.Parameters.AddWithValue("@idConsulta", idConsulta);
+
+                        int numPrescricao = Convert.ToInt32(prescricaoCommand.ExecuteScalar());
+
+                        prescricaoBuscaConsulta.Text = "Possui prescrição - ID da prescrição: " + numPrescricao;
+                    }
+                    else
+                    {
+                        prescricaoBuscaConsulta.Text = "Sem prescrição";
+                    }
+
+                }
+                else
+                {
+                    // Limpar as caixas de texto se não houver resultados
+                    dataconsulta.Text = "";
+                    nomeMedVet.Text = "";
+                    nomeAnimalCon.Text = "";
+                    prescricaoBuscaConsulta.Text = "";
+                }
+            }
+        }
+
+
+
+        private void updateCalendarConsultas(SqlConnection connection)
+        {
+            connection.Open();
+            string query = "SELECT dataConsulta FROM CONSULTA";
+            SqlCommand command = new SqlCommand(query, connection);
+            SqlDataReader reader = command.ExecuteReader();
+            List<DateTime> consultaDates = new List<DateTime>();
+            while (reader.Read())
+            {
+                DateTime consultaDate = reader.GetDateTime(0);
+                consultaDates.Add(consultaDate);
+            }
+
+            reader.Close();
+            foreach (DateTime consultaDate in consultaDates)
+            {
+                monthCalendar1.AddBoldedDate(consultaDate);
+            }
+            monthCalendar1.UpdateBoldedDates();
+            connection.Close();
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            panelPesquisaPrescricao.Visible = false;
+            panelMarcarConsulta.Visible = true;
+            panelDesmarcarConsulta.Visible = false;
+
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            panelDesmarcarConsulta.Visible = true;
+            panelPesquisaPrescricao.Visible = false;
+            panelMarcarConsulta.Visible = false;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            consultas.Visible = false;
+            panel1.Visible = false;
+            panel2.Visible = false;
+            panelCirurgias.Visible = true;
+        }
     }
 }

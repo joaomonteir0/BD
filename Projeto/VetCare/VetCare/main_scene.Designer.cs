@@ -114,6 +114,26 @@
             label20 = new Label();
             textNomeMedico = new TextBox();
             label19 = new Label();
+            consultas = new Panel();
+            button13 = new Button();
+            button12 = new Button();
+            monthCalendar1 = new MonthCalendar();
+            panelMarcarConsulta = new Panel();
+            label32 = new Label();
+            panelPesquisaPrescricao = new Panel();
+            label31 = new Label();
+            prescricaoBuscaConsulta = new TextBox();
+            label30 = new Label();
+            nomeAnimalCon = new TextBox();
+            label29 = new Label();
+            nomeMedVet = new TextBox();
+            label26 = new Label();
+            dataconsulta = new TextBox();
+            panelDesmarcarConsulta = new Panel();
+            label33 = new Label();
+            panelCirurgias = new Panel();
+            button15 = new Button();
+            button14 = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)AnimalDataGrid).BeginInit();
             painelAddAnimal.SuspendLayout();
@@ -125,13 +145,18 @@
             gerenciarMedico.SuspendLayout();
             adicionarMedico.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            consultas.SuspendLayout();
+            panelMarcarConsulta.SuspendLayout();
+            panelPesquisaPrescricao.SuspendLayout();
+            panelDesmarcarConsulta.SuspendLayout();
+            panelCirurgias.SuspendLayout();
             SuspendLayout();
             // 
             // button1
             // 
-            button1.Location = new Point(12, 12);
+            button1.Location = new Point(13, 4);
             button1.Name = "button1";
-            button1.Size = new Size(94, 29);
+            button1.Size = new Size(94, 40);
             button1.TabIndex = 0;
             button1.Text = "Animais";
             button1.UseVisualStyleBackColor = true;
@@ -139,9 +164,9 @@
             // 
             // button2
             // 
-            button2.Location = new Point(117, 12);
+            button2.Location = new Point(118, 4);
             button2.Name = "button2";
-            button2.Size = new Size(94, 29);
+            button2.Size = new Size(94, 40);
             button2.TabIndex = 1;
             button2.Text = "Médicos";
             button2.UseVisualStyleBackColor = true;
@@ -149,21 +174,23 @@
             // 
             // button3
             // 
-            button3.Location = new Point(1095, 49);
+            button3.Location = new Point(223, 4);
             button3.Name = "button3";
-            button3.Size = new Size(95, 31);
+            button3.Size = new Size(95, 40);
             button3.TabIndex = 2;
             button3.Text = "Consultas";
             button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
             // 
             // button4
             // 
-            button4.Location = new Point(1095, 93);
+            button4.Location = new Point(327, 3);
             button4.Name = "button4";
-            button4.Size = new Size(95, 31);
+            button4.Size = new Size(95, 41);
             button4.TabIndex = 3;
             button4.Text = "Cirurgias";
             button4.UseVisualStyleBackColor = true;
+            button4.Click += button4_Click;
             // 
             // panel1
             // 
@@ -1034,6 +1061,207 @@
             label19.TabIndex = 0;
             label19.Text = "Nome do médico:";
             // 
+            // consultas
+            // 
+            consultas.Controls.Add(button13);
+            consultas.Controls.Add(button12);
+            consultas.Controls.Add(monthCalendar1);
+            consultas.Controls.Add(panelMarcarConsulta);
+            consultas.Controls.Add(panelPesquisaPrescricao);
+            consultas.Controls.Add(panelDesmarcarConsulta);
+            consultas.Location = new Point(16, 47);
+            consultas.Name = "consultas";
+            consultas.Size = new Size(1073, 638);
+            consultas.TabIndex = 5;
+            consultas.Paint += panel3_Paint;
+            // 
+            // button13
+            // 
+            button13.BackColor = Color.Brown;
+            button13.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
+            button13.ForeColor = Color.White;
+            button13.Location = new Point(20, 310);
+            button13.Name = "button13";
+            button13.Size = new Size(269, 50);
+            button13.TabIndex = 4;
+            button13.Text = "Desmarcar Consulta";
+            button13.UseVisualStyleBackColor = false;
+            button13.Click += button13_Click;
+            // 
+            // button12
+            // 
+            button12.BackColor = Color.FromArgb(0, 192, 0);
+            button12.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
+            button12.ForeColor = Color.FromArgb(0, 64, 0);
+            button12.Location = new Point(20, 245);
+            button12.Name = "button12";
+            button12.Size = new Size(269, 50);
+            button12.TabIndex = 3;
+            button12.Text = "Marcar Consulta";
+            button12.UseVisualStyleBackColor = false;
+            button12.Click += button12_Click;
+            // 
+            // monthCalendar1
+            // 
+            monthCalendar1.Location = new Point(20, 21);
+            monthCalendar1.Name = "monthCalendar1";
+            monthCalendar1.TabIndex = 1;
+            monthCalendar1.DateChanged += monthCalendar1_DateChanged;
+            monthCalendar1.DateSelected += monthCalendar1_DateSelected;
+            // 
+            // panelMarcarConsulta
+            // 
+            panelMarcarConsulta.Controls.Add(label32);
+            panelMarcarConsulta.Location = new Point(318, 21);
+            panelMarcarConsulta.Name = "panelMarcarConsulta";
+            panelMarcarConsulta.Size = new Size(740, 604);
+            panelMarcarConsulta.TabIndex = 5;
+            panelMarcarConsulta.Visible = false;
+            // 
+            // label32
+            // 
+            label32.AutoSize = true;
+            label32.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            label32.Location = new Point(6, 8);
+            label32.Name = "label32";
+            label32.Size = new Size(243, 41);
+            label32.TabIndex = 0;
+            label32.Text = "Marcar Consulta";
+            // 
+            // panelPesquisaPrescricao
+            // 
+            panelPesquisaPrescricao.Controls.Add(label31);
+            panelPesquisaPrescricao.Controls.Add(prescricaoBuscaConsulta);
+            panelPesquisaPrescricao.Controls.Add(label30);
+            panelPesquisaPrescricao.Controls.Add(nomeAnimalCon);
+            panelPesquisaPrescricao.Controls.Add(label29);
+            panelPesquisaPrescricao.Controls.Add(nomeMedVet);
+            panelPesquisaPrescricao.Controls.Add(label26);
+            panelPesquisaPrescricao.Controls.Add(dataconsulta);
+            panelPesquisaPrescricao.Location = new Point(321, 21);
+            panelPesquisaPrescricao.Name = "panelPesquisaPrescricao";
+            panelPesquisaPrescricao.Size = new Size(740, 604);
+            panelPesquisaPrescricao.TabIndex = 2;
+            panelPesquisaPrescricao.Visible = false;
+            // 
+            // label31
+            // 
+            label31.AutoSize = true;
+            label31.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
+            label31.Location = new Point(6, 221);
+            label31.Name = "label31";
+            label31.Size = new Size(91, 23);
+            label31.TabIndex = 7;
+            label31.Text = "Prescrição:";
+            // 
+            // prescricaoBuscaConsulta
+            // 
+            prescricaoBuscaConsulta.Enabled = false;
+            prescricaoBuscaConsulta.Location = new Point(7, 247);
+            prescricaoBuscaConsulta.Name = "prescricaoBuscaConsulta";
+            prescricaoBuscaConsulta.Size = new Size(319, 27);
+            prescricaoBuscaConsulta.TabIndex = 6;
+            // 
+            // label30
+            // 
+            label30.AutoSize = true;
+            label30.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
+            label30.Location = new Point(6, 148);
+            label30.Name = "label30";
+            label30.Size = new Size(142, 23);
+            label30.TabIndex = 5;
+            label30.Text = "Nome do animal:";
+            // 
+            // nomeAnimalCon
+            // 
+            nomeAnimalCon.Enabled = false;
+            nomeAnimalCon.Location = new Point(7, 174);
+            nomeAnimalCon.Name = "nomeAnimalCon";
+            nomeAnimalCon.Size = new Size(319, 27);
+            nomeAnimalCon.TabIndex = 4;
+            // 
+            // label29
+            // 
+            label29.AutoSize = true;
+            label29.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
+            label29.Location = new Point(6, 81);
+            label29.Name = "label29";
+            label29.Size = new Size(233, 23);
+            label29.TabIndex = 3;
+            label29.Text = "Nome do médico veterinário:";
+            // 
+            // nomeMedVet
+            // 
+            nomeMedVet.Enabled = false;
+            nomeMedVet.Location = new Point(7, 107);
+            nomeMedVet.Name = "nomeMedVet";
+            nomeMedVet.Size = new Size(319, 27);
+            nomeMedVet.TabIndex = 2;
+            // 
+            // label26
+            // 
+            label26.AutoSize = true;
+            label26.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
+            label26.Location = new Point(6, 13);
+            label26.Name = "label26";
+            label26.Size = new Size(143, 23);
+            label26.TabIndex = 1;
+            label26.Text = "Data da consulta:";
+            // 
+            // dataconsulta
+            // 
+            dataconsulta.Enabled = false;
+            dataconsulta.Location = new Point(7, 39);
+            dataconsulta.Name = "dataconsulta";
+            dataconsulta.Size = new Size(319, 27);
+            dataconsulta.TabIndex = 0;
+            // 
+            // panelDesmarcarConsulta
+            // 
+            panelDesmarcarConsulta.Controls.Add(label33);
+            panelDesmarcarConsulta.Location = new Point(319, 21);
+            panelDesmarcarConsulta.Name = "panelDesmarcarConsulta";
+            panelDesmarcarConsulta.Size = new Size(740, 604);
+            panelDesmarcarConsulta.TabIndex = 5;
+            panelDesmarcarConsulta.Visible = false;
+            // 
+            // label33
+            // 
+            label33.AutoSize = true;
+            label33.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            label33.Location = new Point(3, 8);
+            label33.Name = "label33";
+            label33.Size = new Size(293, 41);
+            label33.TabIndex = 0;
+            label33.Text = "Desmarcar Consulta";
+            // 
+            // panelCirurgias
+            // 
+            panelCirurgias.Controls.Add(button15);
+            panelCirurgias.Controls.Add(button14);
+            panelCirurgias.Location = new Point(16, 49);
+            panelCirurgias.Name = "panelCirurgias";
+            panelCirurgias.Size = new Size(1070, 636);
+            panelCirurgias.TabIndex = 6;
+            // 
+            // button15
+            // 
+            button15.Location = new Point(8, 96);
+            button15.Name = "button15";
+            button15.Size = new Size(153, 71);
+            button15.TabIndex = 1;
+            button15.Text = "Marcar Cirurgia";
+            button15.UseVisualStyleBackColor = true;
+            // 
+            // button14
+            // 
+            button14.Location = new Point(8, 13);
+            button14.Name = "button14";
+            button14.Size = new Size(153, 71);
+            button14.TabIndex = 0;
+            button14.Text = "Gerenciar Cirurgias";
+            button14.UseVisualStyleBackColor = true;
+            // 
             // main_scene
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -1042,6 +1270,8 @@
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             BackColor = Color.FromArgb(224, 224, 224);
             ClientSize = new Size(1212, 852);
+            Controls.Add(panelCirurgias);
+            Controls.Add(consultas);
             Controls.Add(button4);
             Controls.Add(button3);
             Controls.Add(button2);
@@ -1049,7 +1279,7 @@
             Controls.Add(panel2);
             Controls.Add(panel1);
             Name = "main_scene";
-            Text = "Form1";
+            Text = "VetCare";
             Load += main_scene_Load;
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)AnimalDataGrid).EndInit();
@@ -1068,6 +1298,14 @@
             adicionarMedico.ResumeLayout(false);
             adicionarMedico.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            consultas.ResumeLayout(false);
+            panelMarcarConsulta.ResumeLayout(false);
+            panelMarcarConsulta.PerformLayout();
+            panelPesquisaPrescricao.ResumeLayout(false);
+            panelPesquisaPrescricao.PerformLayout();
+            panelDesmarcarConsulta.ResumeLayout(false);
+            panelDesmarcarConsulta.PerformLayout();
+            panelCirurgias.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -1156,5 +1394,25 @@
         private TextBox textBox7;
         private Label label23;
         private TextBox textBox6;
+        private Panel consultas;
+        private MonthCalendar monthCalendar1;
+        private Panel panelPesquisaPrescricao;
+        private Label label30;
+        private TextBox nomeAnimalCon;
+        private Label label29;
+        private TextBox nomeMedVet;
+        private Label label26;
+        private TextBox dataconsulta;
+        private Label label31;
+        private TextBox prescricaoBuscaConsulta;
+        private Button button13;
+        private Button button12;
+        private Panel panelMarcarConsulta;
+        private Label label32;
+        private Panel panelDesmarcarConsulta;
+        private Label label33;
+        private Panel panelCirurgias;
+        private Button button15;
+        private Button button14;
     }
 }
