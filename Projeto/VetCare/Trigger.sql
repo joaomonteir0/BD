@@ -42,3 +42,24 @@ BEGIN
     FROM inserted;
 END;
 
+CREATE TRIGGER ValidarDataConsulta
+ON CONSULTA
+INSTEAD OF INSERT
+AS
+BEGIN
+    IF EXISTS (
+        SELECT *
+        FROM inserted
+        WHERE dataConsulta <= GETDATE()
+    )
+    BEGIN
+        RAISERROR ('Data da consulta inválida. A data deve ser futura.', 16, 1)
+        ROLLBACK TRANSACTION
+        RETURN
+    END
+
+    INSERT INTO CONSULTA (idConsulta, numMedicoVet, numPaciente, dataConsulta)
+    SELECT idConsulta, numMedicoVet, numPaciente, dataConsulta
+    FROM inserted
+END;
+

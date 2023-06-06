@@ -34,7 +34,6 @@
             button1 = new Button();
             button2 = new Button();
             button3 = new Button();
-            button4 = new Button();
             panel1 = new Panel();
             button6 = new Button();
             button5 = new Button();
@@ -115,12 +114,10 @@
             textNomeMedico = new TextBox();
             label19 = new Label();
             consultas = new Panel();
-            button13 = new Button();
             button12 = new Button();
             monthCalendar1 = new MonthCalendar();
-            panelMarcarConsulta = new Panel();
-            label32 = new Label();
             panelPesquisaPrescricao = new Panel();
+            button13 = new Button();
             label31 = new Label();
             prescricaoBuscaConsulta = new TextBox();
             label30 = new Label();
@@ -129,11 +126,23 @@
             nomeMedVet = new TextBox();
             label26 = new Label();
             dataconsulta = new TextBox();
-            panelDesmarcarConsulta = new Panel();
-            label33 = new Label();
+            panelMarcarConsulta = new Panel();
+            label35 = new Label();
+            painelConsultaMarcar = new Panel();
+            button16 = new Button();
+            label38 = new Label();
+            comboBox1 = new ComboBox();
+            label37 = new Label();
+            label36 = new Label();
+            dateTimePicker1 = new DateTimePicker();
+            pesquisarBotao = new Button();
+            numpacienteconsulta = new TextBox();
+            label34 = new Label();
+            label32 = new Label();
             panelCirurgias = new Panel();
-            button15 = new Button();
-            button14 = new Button();
+            panel3 = new Panel();
+            dataGridView1 = new DataGridView();
+            button4 = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)AnimalDataGrid).BeginInit();
             painelAddAnimal.SuspendLayout();
@@ -146,10 +155,12 @@
             adicionarMedico.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             consultas.SuspendLayout();
-            panelMarcarConsulta.SuspendLayout();
             panelPesquisaPrescricao.SuspendLayout();
-            panelDesmarcarConsulta.SuspendLayout();
+            panelMarcarConsulta.SuspendLayout();
+            painelConsultaMarcar.SuspendLayout();
             panelCirurgias.SuspendLayout();
+            panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // button1
@@ -181,16 +192,6 @@
             button3.Text = "Consultas";
             button3.UseVisualStyleBackColor = true;
             button3.Click += button3_Click;
-            // 
-            // button4
-            // 
-            button4.Location = new Point(327, 3);
-            button4.Name = "button4";
-            button4.Size = new Size(95, 41);
-            button4.TabIndex = 3;
-            button4.Text = "Cirurgias";
-            button4.UseVisualStyleBackColor = true;
-            button4.Click += button4_Click;
             // 
             // panel1
             // 
@@ -782,6 +783,7 @@
             // 
             dataGridMedicos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridMedicos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridMedicos.Enabled = false;
             dataGridMedicos.GridColor = SystemColors.ControlLightLight;
             dataGridMedicos.Location = new Point(8, 404);
             dataGridMedicos.Name = "dataGridMedicos";
@@ -1063,30 +1065,15 @@
             // 
             // consultas
             // 
-            consultas.Controls.Add(button13);
             consultas.Controls.Add(button12);
             consultas.Controls.Add(monthCalendar1);
-            consultas.Controls.Add(panelMarcarConsulta);
             consultas.Controls.Add(panelPesquisaPrescricao);
-            consultas.Controls.Add(panelDesmarcarConsulta);
+            consultas.Controls.Add(panelMarcarConsulta);
             consultas.Location = new Point(16, 47);
             consultas.Name = "consultas";
             consultas.Size = new Size(1073, 638);
             consultas.TabIndex = 5;
             consultas.Paint += panel3_Paint;
-            // 
-            // button13
-            // 
-            button13.BackColor = Color.Brown;
-            button13.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
-            button13.ForeColor = Color.White;
-            button13.Location = new Point(20, 310);
-            button13.Name = "button13";
-            button13.Size = new Size(269, 50);
-            button13.TabIndex = 4;
-            button13.Text = "Desmarcar Consulta";
-            button13.UseVisualStyleBackColor = false;
-            button13.Click += button13_Click;
             // 
             // button12
             // 
@@ -1109,27 +1096,9 @@
             monthCalendar1.DateChanged += monthCalendar1_DateChanged;
             monthCalendar1.DateSelected += monthCalendar1_DateSelected;
             // 
-            // panelMarcarConsulta
-            // 
-            panelMarcarConsulta.Controls.Add(label32);
-            panelMarcarConsulta.Location = new Point(318, 21);
-            panelMarcarConsulta.Name = "panelMarcarConsulta";
-            panelMarcarConsulta.Size = new Size(740, 604);
-            panelMarcarConsulta.TabIndex = 5;
-            panelMarcarConsulta.Visible = false;
-            // 
-            // label32
-            // 
-            label32.AutoSize = true;
-            label32.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            label32.Location = new Point(6, 8);
-            label32.Name = "label32";
-            label32.Size = new Size(243, 41);
-            label32.TabIndex = 0;
-            label32.Text = "Marcar Consulta";
-            // 
             // panelPesquisaPrescricao
             // 
+            panelPesquisaPrescricao.Controls.Add(button13);
             panelPesquisaPrescricao.Controls.Add(label31);
             panelPesquisaPrescricao.Controls.Add(prescricaoBuscaConsulta);
             panelPesquisaPrescricao.Controls.Add(label30);
@@ -1143,6 +1112,15 @@
             panelPesquisaPrescricao.Size = new Size(740, 604);
             panelPesquisaPrescricao.TabIndex = 2;
             panelPesquisaPrescricao.Visible = false;
+            // 
+            // button13
+            // 
+            button13.Location = new Point(9, 301);
+            button13.Name = "button13";
+            button13.Size = new Size(164, 43);
+            button13.TabIndex = 8;
+            button13.Text = "Desmarcar consulta";
+            button13.UseVisualStyleBackColor = true;
             // 
             // label31
             // 
@@ -1216,51 +1194,173 @@
             dataconsulta.Size = new Size(319, 27);
             dataconsulta.TabIndex = 0;
             // 
-            // panelDesmarcarConsulta
+            // panelMarcarConsulta
             // 
-            panelDesmarcarConsulta.Controls.Add(label33);
-            panelDesmarcarConsulta.Location = new Point(319, 21);
-            panelDesmarcarConsulta.Name = "panelDesmarcarConsulta";
-            panelDesmarcarConsulta.Size = new Size(740, 604);
-            panelDesmarcarConsulta.TabIndex = 5;
-            panelDesmarcarConsulta.Visible = false;
+            panelMarcarConsulta.Controls.Add(label35);
+            panelMarcarConsulta.Controls.Add(painelConsultaMarcar);
+            panelMarcarConsulta.Controls.Add(pesquisarBotao);
+            panelMarcarConsulta.Controls.Add(numpacienteconsulta);
+            panelMarcarConsulta.Controls.Add(label34);
+            panelMarcarConsulta.Controls.Add(label32);
+            panelMarcarConsulta.Location = new Point(318, 21);
+            panelMarcarConsulta.Name = "panelMarcarConsulta";
+            panelMarcarConsulta.Size = new Size(740, 604);
+            panelMarcarConsulta.TabIndex = 5;
+            panelMarcarConsulta.Visible = false;
             // 
-            // label33
+            // label35
             // 
-            label33.AutoSize = true;
-            label33.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            label33.Location = new Point(3, 8);
-            label33.Name = "label33";
-            label33.Size = new Size(293, 41);
-            label33.TabIndex = 0;
-            label33.Text = "Desmarcar Consulta";
+            label35.AutoSize = true;
+            label35.ForeColor = Color.Red;
+            label35.Location = new Point(10, 158);
+            label35.Name = "label35";
+            label35.Size = new Size(114, 20);
+            label35.TabIndex = 5;
+            label35.Text = "não encontrado";
+            label35.Visible = false;
+            // 
+            // painelConsultaMarcar
+            // 
+            painelConsultaMarcar.Controls.Add(button16);
+            painelConsultaMarcar.Controls.Add(label38);
+            painelConsultaMarcar.Controls.Add(comboBox1);
+            painelConsultaMarcar.Controls.Add(label37);
+            painelConsultaMarcar.Controls.Add(label36);
+            painelConsultaMarcar.Controls.Add(dateTimePicker1);
+            painelConsultaMarcar.Location = new Point(12, 177);
+            painelConsultaMarcar.Name = "painelConsultaMarcar";
+            painelConsultaMarcar.Size = new Size(445, 295);
+            painelConsultaMarcar.TabIndex = 4;
+            painelConsultaMarcar.Visible = false;
+            // 
+            // button16
+            // 
+            button16.BackColor = Color.FromArgb(192, 192, 255);
+            button16.Location = new Point(3, 158);
+            button16.Name = "button16";
+            button16.Size = new Size(250, 42);
+            button16.TabIndex = 5;
+            button16.Text = "Marcar";
+            button16.UseVisualStyleBackColor = false;
+            button16.Click += button16_Click;
+            // 
+            // label38
+            // 
+            label38.AutoSize = true;
+            label38.Location = new Point(2, 11);
+            label38.Name = "label38";
+            label38.Size = new Size(196, 20);
+            label38.TabIndex = 4;
+            label38.Text = "Preencha os campos abaixo:";
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(3, 116);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(250, 28);
+            comboBox1.TabIndex = 3;
+            // 
+            // label37
+            // 
+            label37.AutoSize = true;
+            label37.Location = new Point(3, 93);
+            label37.Name = "label37";
+            label37.Size = new Size(138, 20);
+            label37.TabIndex = 2;
+            label37.Text = "Médico Veterinário:";
+            // 
+            // label36
+            // 
+            label36.AutoSize = true;
+            label36.Location = new Point(2, 33);
+            label36.Name = "label36";
+            label36.Size = new Size(124, 20);
+            label36.TabIndex = 1;
+            label36.Text = "Data da consulta:";
+            // 
+            // dateTimePicker1
+            // 
+            dateTimePicker1.Location = new Point(3, 56);
+            dateTimePicker1.Name = "dateTimePicker1";
+            dateTimePicker1.Size = new Size(250, 27);
+            dateTimePicker1.TabIndex = 0;
+            // 
+            // pesquisarBotao
+            // 
+            pesquisarBotao.Location = new Point(12, 123);
+            pesquisarBotao.Name = "pesquisarBotao";
+            pesquisarBotao.Size = new Size(94, 29);
+            pesquisarBotao.TabIndex = 3;
+            pesquisarBotao.Text = "Pesquisar";
+            pesquisarBotao.UseVisualStyleBackColor = true;
+            pesquisarBotao.Click += pesquisarBotao_Click;
+            // 
+            // numpacienteconsulta
+            // 
+            numpacienteconsulta.Location = new Point(12, 85);
+            numpacienteconsulta.Name = "numpacienteconsulta";
+            numpacienteconsulta.Size = new Size(276, 27);
+            numpacienteconsulta.TabIndex = 2;
+            numpacienteconsulta.TextChanged += textBox9_TextChanged;
+            // 
+            // label34
+            // 
+            label34.AutoSize = true;
+            label34.Location = new Point(10, 61);
+            label34.Name = "label34";
+            label34.Size = new Size(143, 20);
+            label34.TabIndex = 1;
+            label34.Text = "Número de Paciente";
+            label34.Click += label34_Click;
+            // 
+            // label32
+            // 
+            label32.AutoSize = true;
+            label32.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            label32.Location = new Point(6, 8);
+            label32.Name = "label32";
+            label32.Size = new Size(243, 41);
+            label32.TabIndex = 0;
+            label32.Text = "Marcar Consulta";
             // 
             // panelCirurgias
             // 
-            panelCirurgias.Controls.Add(button15);
-            panelCirurgias.Controls.Add(button14);
+            panelCirurgias.Controls.Add(panel3);
             panelCirurgias.Location = new Point(16, 49);
             panelCirurgias.Name = "panelCirurgias";
             panelCirurgias.Size = new Size(1070, 636);
             panelCirurgias.TabIndex = 6;
             // 
-            // button15
+            // panel3
             // 
-            button15.Location = new Point(8, 96);
-            button15.Name = "button15";
-            button15.Size = new Size(153, 71);
-            button15.TabIndex = 1;
-            button15.Text = "Marcar Cirurgia";
-            button15.UseVisualStyleBackColor = true;
+            panel3.Controls.Add(dataGridView1);
+            panel3.Location = new Point(8, 13);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(1047, 603);
+            panel3.TabIndex = 2;
             // 
-            // button14
+            // dataGridView1
             // 
-            button14.Location = new Point(8, 13);
-            button14.Name = "button14";
-            button14.Size = new Size(153, 71);
-            button14.TabIndex = 0;
-            button14.Text = "Gerenciar Cirurgias";
-            button14.UseVisualStyleBackColor = true;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(7, 6);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            dataGridView1.RowTemplate.Height = 29;
+            dataGridView1.ScrollBars = ScrollBars.Vertical;
+            dataGridView1.Size = new Size(542, 494);
+            dataGridView1.TabIndex = 0;
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick_1;
+            // 
+            // button4
+            // 
+            button4.Location = new Point(327, 3);
+            button4.Name = "button4";
+            button4.Size = new Size(95, 41);
+            button4.TabIndex = 3;
+            button4.Text = "Cirurgias";
+            button4.UseVisualStyleBackColor = true;
+            button4.Click += button4_Click;
             // 
             // main_scene
             // 
@@ -1269,15 +1369,15 @@
             AutoSize = true;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             BackColor = Color.FromArgb(224, 224, 224);
-            ClientSize = new Size(1212, 852);
-            Controls.Add(panelCirurgias);
-            Controls.Add(consultas);
+            ClientSize = new Size(1212, 679);
             Controls.Add(button4);
             Controls.Add(button3);
             Controls.Add(button2);
             Controls.Add(button1);
+            Controls.Add(consultas);
             Controls.Add(panel2);
             Controls.Add(panel1);
+            Controls.Add(panelCirurgias);
             Name = "main_scene";
             Text = "VetCare";
             Load += main_scene_Load;
@@ -1299,13 +1399,15 @@
             adicionarMedico.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             consultas.ResumeLayout(false);
-            panelMarcarConsulta.ResumeLayout(false);
-            panelMarcarConsulta.PerformLayout();
             panelPesquisaPrescricao.ResumeLayout(false);
             panelPesquisaPrescricao.PerformLayout();
-            panelDesmarcarConsulta.ResumeLayout(false);
-            panelDesmarcarConsulta.PerformLayout();
+            panelMarcarConsulta.ResumeLayout(false);
+            panelMarcarConsulta.PerformLayout();
+            painelConsultaMarcar.ResumeLayout(false);
+            painelConsultaMarcar.PerformLayout();
             panelCirurgias.ResumeLayout(false);
+            panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
         }
 
@@ -1314,7 +1416,6 @@
         private Button button1;
         private Button button2;
         private Button button3;
-        private Button button4;
         private Panel panel1; // painel dos animais
         private DataGridView AnimalDataGrid;
         private Button button5;
@@ -1405,14 +1506,26 @@
         private TextBox dataconsulta;
         private Label label31;
         private TextBox prescricaoBuscaConsulta;
-        private Button button13;
         private Button button12;
         private Panel panelMarcarConsulta;
         private Label label32;
-        private Panel panelDesmarcarConsulta;
-        private Label label33;
         private Panel panelCirurgias;
-        private Button button15;
-        private Button button14;
+        private TextBox numpacienteconsulta;
+        private Label label34;
+        private Label label35;
+        private Panel painelConsultaMarcar;
+        private Label label37;
+        private Label label36;
+        private DateTimePicker dateTimePicker1;
+        private Button pesquisarBotao;
+        private ComboBox comboBox1;
+        private Button button16;
+        private Label label38;
+        private Label label40;
+        private Label label39;
+        private Button button13;
+        private Button button4;
+        private Panel panel3;
+        private DataGridView dataGridView1;
     }
 }

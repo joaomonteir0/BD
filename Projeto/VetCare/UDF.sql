@@ -1,4 +1,4 @@
-/*CREATE FUNCTION dbo.GetCCAndFichaUnicaByNumPaciente
+CREATE FUNCTION dbo.GetCCAndFichaUnicaByNumPaciente
 (
     @numPaciente INT
 )
@@ -9,7 +9,7 @@ RETURN
     SELECT numCC, numFichaUnica
     FROM FICHA_CLINICA
     WHERE numPaciente = @numPaciente
-);*/
+);
 
 CREATE FUNCTION dbo.ObterDadosFichaClinica (
     @numFichaUnica INT

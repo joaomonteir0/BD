@@ -151,7 +151,7 @@ namespace VetCare
         private SqlConnection getSGBDConnection()
         {
             // Constructs a new SqlConnection 
-            return new SqlConnection("Data Source=JOAO;Initial Catalog=VetCare;Integrated Security=True");
+            return new SqlConnection("Data Source=tcp:mednat.ieeta.pt\\SQLSERVER,8101;Initial Catalog=p2g8;uid=p2g8;password=-Andorinha420");
         }
 
         private bool verifySGBDConnection()
@@ -971,7 +971,11 @@ namespace VetCare
 
             panelPesquisaPrescricao.Visible = false;
             panelMarcarConsulta.Visible = false;
-            panelDesmarcarConsulta.Visible = false;
+            using (SqlConnection connection = getSGBDConnection())
+            {
+                updateCalendarConsultas(connection);
+
+            }
 
         }
 
@@ -979,7 +983,6 @@ namespace VetCare
         {
             panelPesquisaPrescricao.Visible = true;
             panelMarcarConsulta.Visible = false;
-            panelDesmarcarConsulta.Visible = false;
             using (SqlConnection connection = getSGBDConnection())
             {
                 updateCalendarConsultas(connection);
@@ -1071,13 +1074,11 @@ namespace VetCare
         {
             panelPesquisaPrescricao.Visible = false;
             panelMarcarConsulta.Visible = true;
-            panelDesmarcarConsulta.Visible = false;
 
         }
 
         private void button13_Click(object sender, EventArgs e)
         {
-            panelDesmarcarConsulta.Visible = true;
             panelPesquisaPrescricao.Visible = false;
             panelMarcarConsulta.Visible = false;
         }
@@ -1088,6 +1089,160 @@ namespace VetCare
             panel1.Visible = false;
             panel2.Visible = false;
             panelCirurgias.Visible = true;
+            CarregarDados();
+        }
+
+        private void label34_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox9_TextChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void pesquisarBotao_Click(object sender, EventArgs e)
+        {
+            int numPaciente = int.Parse(numpacienteconsulta.Text);
+
+            bool pacienteExiste = VerificarExistenciaPaciente(numPaciente);
+
+            if (pacienteExiste)
+            {
+                painelConsultaMarcar.Visible = true;
+                label35.Visible = false;
+                using (SqlConnection connection = getSGBDConnection())
+                {
+                    connection.Open();
+
+                    string query = "SELECT nome FROM MEDICO_VET";
+
+                    SqlCommand command = new SqlCommand(query, connection);
+
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    comboBox1.Items.Clear();
+
+                    while (reader.Read())
+                    {
+                        comboBox1.Items.Add(reader["nome"].ToString());
+                    }
+
+                    reader.Close();
+                }
+
+            }
+            else
+            {
+                painelConsultaMarcar.Visible = false;
+                label35.Visible = true;
+            }
+        }
+
+        private bool VerificarExistenciaPaciente(int numPaciente)
+        {
+            using (SqlConnection connection = getSGBDConnection())
+            {
+                SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM ANIMAL WHERE numPaciente = @numPaciente", connection);
+                command.Parameters.AddWithValue("@numPaciente", numPaciente);
+
+                connection.Open();
+                int count = (int)command.ExecuteScalar();
+
+                return count > 0;
+            }
+        }
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(dateTimePicker1.Text) && comboBox1.SelectedItem != null)
+            {
+                DateTime data = DateTime.Parse(dateTimePicker1.Text);
+                string nomeMedico = comboBox1.SelectedItem.ToString();
+
+                int numMedicoVet = ObterIdMedicoPorNome(nomeMedico);
+
+                if (numMedicoVet != -1)
+                {
+                    using (SqlConnection connection = getSGBDConnection())
+                    {
+                        connection.Open();
+
+                        SqlCommand command = new SqlCommand("MarcarConsulta", connection);
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.AddWithValue("@dataConsulta", data);
+                        command.Parameters.AddWithValue("@numPaciente", numpacienteconsulta.Text);
+                        command.Parameters.AddWithValue("@nomeMedico", nomeMedico);
+                        command.ExecuteNonQuery();
+
+
+                        connection.Close();
+
+                        MessageBox.Show("Consulta marcada com sucesso!");
+
+                        dateTimePicker1.Text = string.Empty;
+                        comboBox1.SelectedItem = null;
+                        numpacienteconsulta.Text = string.Empty;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Médico inválido. Selecione um médico válido da lista.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Preencha a data e selecione um médico antes de marcar a consulta.");
+            }
+        }
+
+        private int ObterIdMedicoPorNome(string nomeMedico)
+        {
+            int idMedico = -1;
+
+            using (SqlConnection connection = getSGBDConnection())
+            {
+                connection.Open();
+
+                string query = "SELECT numProfissional FROM MEDICO_VET WHERE nome = @nomeMedico";
+
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@nomeMedico", nomeMedico);
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    idMedico = Convert.ToInt32(reader["numProfissional"]);
+                }
+
+                reader.Close();
+            }
+
+            return idMedico;
+        }
+
+        private void CarregarDados()
+        {
+            using (SqlConnection connection = getSGBDConnection())
+            {
+                string query = "SELECT * FROM vw_Cirurgia";
+
+                SqlCommand command = new SqlCommand(query, connection);
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+
+                DataTable dataTable = new DataTable();
+                adapter.Fill(dataTable);
+
+                dataGridView1.DataSource = dataTable;
+            }
+        }
+
+
+        private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

@@ -23,20 +23,31 @@ INSERT INTO FICHA_CLINICA (numFichaUnica, registoMedico, numCC, numPaciente) VAL
 INSERT INTO MEDICO_VET (nome, contato, email, morada) VALUES ('Dr. João Silva', 987654321, 'joao.silva@example.com', 'Rua das Flores, 123');
 INSERT INTO MEDICO_VET (nome, contato, email, morada) VALUES ('Dra. Maria Santos', 123456789, 'maria.santos@example.com', 'Avenida Central, 456');
 INSERT INTO MEDICO_VET (nome, contato, email, morada) VALUES ('Dr. Pedro Oliveira', 456789123, 'pedro.oliveira@example.com', 'Praça da Liberdade, 789');
+INSERT INTO MEDICO_VET (numProfissional, nome, contato, email, morada) VALUES (4, 'Dr. Antônio Silva', 999888777, 'antonio.silva@example.com', 'Rua dos Médicos, 456');
+INSERT INTO MEDICO_VET (numProfissional, nome, contato, email, morada) VALUES (5, 'Dra. Sofia Almeida', 111222333, 'sofia.almeida@example.com', 'Avenida dos Animais, 789');
+INSERT INTO MEDICO_VET (numProfissional, nome, contato, email, morada) VALUES (6, 'Dr. Ricardo Santos', 444555666, 'ricardo.santos@example.com', 'Praça dos Bichos, 123');
 
 -- Consultas
-INSERT INTO CONSULTA (idConsulta, numMedicoVet, numPaciente, dataConsulta) VALUES (1, 1178243, 1004, '2023-06-01');
-INSERT INTO CONSULTA (idConsulta, numMedicoVet, numPaciente, dataConsulta) VALUES (2, 4620903, 1005, '2023-06-05');
-INSERT INTO CONSULTA (idConsulta, numMedicoVet, numPaciente, dataConsulta) VALUES (3, 1178243, 1004, '2023-06-08');
-INSERT INTO CONSULTA (idConsulta, numMedicoVet, numPaciente, dataConsulta) VALUES (4, 1178243, 1004, '2023-05-28');
-INSERT INTO CONSULTA (idConsulta, numMedicoVet, numPaciente, dataConsulta) VALUES (5, 4620903, 1005, '2023-05-15');
-INSERT INTO CONSULTA (idConsulta, numMedicoVet, numPaciente, dataConsulta) VALUES (6, 1178243, 1004, '2023-05-20');
-INSERT INTO CONSULTA (idConsulta, numMedicoVet, numPaciente, dataConsulta) VALUES (7, 5731686, 1004, '2023-05-25');
-INSERT INTO CONSULTA (idConsulta, numMedicoVet, numPaciente, dataConsulta) VALUES (8, 4620903, 1004, '2023-05-29');
+INSERT INTO CONSULTA (idConsulta, numMedicoVet, numPaciente, dataConsulta) VALUES (1, 4, 1004, '2023-06-01');
+INSERT INTO CONSULTA (idConsulta, numMedicoVet, numPaciente, dataConsulta) VALUES (2, 4, 1005, '2023-06-05');
+INSERT INTO CONSULTA (idConsulta, numMedicoVet, numPaciente, dataConsulta) VALUES (3, 5, 1004, '2023-06-08');
+INSERT INTO CONSULTA (idConsulta, numMedicoVet, numPaciente, dataConsulta) VALUES (4, 6, 1004, '2023-05-28');
+INSERT INTO CONSULTA (idConsulta, numMedicoVet, numPaciente, dataConsulta) VALUES (5, 5, 1005, '2023-05-15');
+INSERT INTO CONSULTA (idConsulta, numMedicoVet, numPaciente, dataConsulta) VALUES (6, 6, 1004, '2023-05-20');
+INSERT INTO CONSULTA (idConsulta, numMedicoVet, numPaciente, dataConsulta) VALUES (7, 6, 1004, '2023-05-25');
+INSERT INTO CONSULTA (idConsulta, numMedicoVet, numPaciente, dataConsulta) VALUES (8, 6, 1004, '2023-05-29');
 
 
 -- PRESCRICAO
-INSERT INTO PRESCRICAO (numPrescricao, idConsulta, numProfissional, dataConsulta) VALUES (2, 6, 1178243, '2023-05-20');
-INSERT INTO PRESCRICAO (numPrescricao, idConsulta, numProfissional, dataConsulta) VALUES (3, 7, 5731686, '2023-05-25');
+INSERT INTO PRESCRICAO (numPrescricao, idConsulta, numProfissional, dataConsulta) VALUES (212, 6, 1178243, '2023-05-20');
+INSERT INTO PRESCRICAO (numPrescricao, idConsulta, numProfissional, dataConsulta) VALUES (311, 6, 5731686, '2023-05-25');
+INSERT INTO PRESCRICAO (numPrescricao, idConsulta, numProfissional, dataConsulta) VALUES (454, 4, 5731686, '2023-06-01');
+
+
+-- CIRURGIA
+INSERT INTO CIRURGIA (numCirurgia, procedimento, numPaciente, numProfissional) VALUES (5, 'Catnip Surgery', 1003, 4);
+INSERT INTO CIRURGIA (numCirurgia, procedimento, numPaciente, numProfissional) VALUES (6, 'Canine Care', 1004, 5);
+INSERT INTO CIRURGIA (numCirurgia, procedimento, numPaciente, numProfissional) VALUES (7, 'Feline Dental', 1005, 6);
+
 
 

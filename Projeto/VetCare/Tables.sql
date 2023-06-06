@@ -66,7 +66,6 @@ CREATE TABLE CIRURGIA(
 	procedimento VARCHAR(100) NOT NULL,
 	numPaciente INT NOT NULL,
 	numProfissional INT NOT NULL,
-
 	FOREIGN KEY (numPaciente) REFERENCES ANIMAL(numPaciente),
 	FOREIGN KEY (numProfissional) REFERENCES MEDICO_VET(numProfissional)
 );
